@@ -10,7 +10,7 @@
   name: "wolo";
   default: true;
   prefersdark: false;
-  color-scheme: light;
+  color-scheme: dark;
   --color-base-100: oklch(96.8% 0.006 255.5);
   --color-base-200: oklch(93.9% 0.011 255.5);
   --color-base-300: oklch(88.4% 0.019 255.5);
@@ -50,7 +50,7 @@
 
   body {
     background: var(--color-neutral);
-    color: var(--color-base-content);
+    color: var(--color-neutral-content);
     font-family: "Libre Franklin Variable", "Libre Franklin", sans-serif;
   }
 

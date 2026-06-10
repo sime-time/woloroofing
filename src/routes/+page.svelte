@@ -3,9 +3,11 @@
   import Hero from "$lib/components/hero.svelte";
   import Navbar from "$lib/components/navbar.svelte";
   import Services from "$lib/components/services.svelte";
+  import Storm from "$lib/components/storm.svelte";
 </script>
 
 <Navbar />
 <Hero />
 <BenefitBanner />
 <Services />
+<Storm />
