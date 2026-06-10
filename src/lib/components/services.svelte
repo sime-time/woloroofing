@@ -59,7 +59,7 @@
 >
   <p class="label text-primary">What we do</p>
 
-  <h2 class="uppercase text-4xl md:text-6xl text-center">
+  <h2 class="uppercase text-4xl md:text-6xl text-center text-base-content">
     Roofing &amp; Exterior Services
   </h2>
 

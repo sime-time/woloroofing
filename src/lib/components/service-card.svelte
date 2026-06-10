@@ -16,7 +16,7 @@
         class="size-6 text-primary shrink-0 transition-colors duration-400 group-hover:text-primary-content"
       />
     </div>
-    <h3 class="card-title uppercase tracking-wider">
+    <h3 class="card-title uppercase tracking-wider text-base-content">
       {title}
     </h3>
     <p class="text-neutral/60">{description}</p>
