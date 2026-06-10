@@ -12,7 +12,7 @@
 <section
   id="hero"
   class="hero relative min-h-screen overflow-hidden bg-neutral"
-  style="background-image: url(/restoration-after.webp);"
+  style="background-image: url(/hero-home.webp);"
 >
   <div class="hero-overlay bg-linear-to-r from-neutral/95 to-transparent"></div>
   <div
