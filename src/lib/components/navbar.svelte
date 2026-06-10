@@ -28,9 +28,17 @@
       href: "#contact",
     },
   ];
+
+  let scrollY = $state(0);
+  const isScrolled = $derived(scrollY > 8);
 </script>
 
-<section class="bg-neutral py-4 shadow-lg flex justify-center">
+<svelte:window bind:scrollY />
+<section
+  class={["fixed top-0 left-0 flex justify-center z-20 transition-colors duration-300 py-4 w-full", 
+		isScrolled ? "bg-neutral shadow-lg" : "bg-linear-to-b from-neutral/50 to-transparent",
+	]}
+>
   <nav class="flex justify-between items-center w-full max-w-7xl">
     <div>
       <!-- Logo -->
