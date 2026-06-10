@@ -49,16 +49,15 @@
       >
         <div class="diff-item-1 relative" role="img" tabindex="0">
           <img alt={project.beforeAlt} src={project.before}>
-
           <div class="pointer-events-none absolute inset-x-0 top-0 z-10 p-3">
             <span class="badge badge-soft badge-error badge-lg shadow-md">
               Before
             </span>
           </div>
         </div>
+
         <div class="diff-item-2 relative" role="img">
           <img alt={project.afterAlt} src={project.after}>
-
           <div
             class="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-end p-3"
           >
@@ -70,19 +69,14 @@
         <div class="diff-resizer"></div>
 
         <div
-          class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col gap-3 bg-linear-to-t from-neutral to-neutral/40 p-4 text-neutral-content sm:flex-row sm:items-end sm:justify-between sm:p-5"
+          class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex gap-3 bg-linear-to-t from-neutral to-neutral/40 p-4 text-neutral-content sm:flex-row sm:items-end justify-between sm:p-5"
         >
-          <div class="max-w-sm">
-            <h3 class="text-xl font-semibold uppercase sm:text-2xl">
-              {project.title}
-            </h3>
-            <p class="mt-1 text-sm opacity-90 sm:text-base">
-              {project.description}
-            </p>
-          </div>
+          <h3 class="text-xl font-semibold uppercase sm:text-2xl">
+            {project.title}
+          </h3>
 
           <a
-            class="btn btn-primary btn-sm pointer-events-auto self-end shrink-0"
+            class="btn btn-primary btn-sm pointer-events-auto shrink-0"
             href="#contact"
           >
             Start your project

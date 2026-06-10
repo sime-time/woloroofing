@@ -30,6 +30,7 @@
   ];
 
   let scrollY = $state(0);
+  let mobileMenuOpen = $state(false);
   const isScrolled = $derived(scrollY > 8);
 </script>
 
@@ -50,11 +51,11 @@
     <!-- Desktop Nav Links -->
     <div class="hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
-        {#each navItems as item, index}
+        {#each navItems as item}
           <li>
-            <a href={item.href} class="text-base-100 hover:text-accent"
-              >{item.label}</a
-            >
+            <a href={item.href} class="text-base-100 hover:text-accent">
+              {item.label}
+            </a>
           </li>
         {/each}
       </ul>
@@ -74,24 +75,19 @@
         >Free Inspection</a
       >
 
-      <!-- Mobile Dropdown -->
-      <div class="dropdown">
-        <div
-          tabindex="0"
-          role="button"
-          class="btn btn-ghost border-none text-base-100 hover:text-accent hover:bg-transparent lg:hidden"
-        >
-          <Icon icon="lucide:menu" class="h-6 w-auto" />
-        </div>
-        <ul
-          tabindex="-1"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-        >
-          {#each navItems as item, index}
-            <li><a href={item.href}>{item.label}</a> </li>
-          {/each}
-        </ul>
-      </div>
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        aria-expanded={mobileMenuOpen}
+        aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+        class="btn btn-ghost border-none text-base-100 hover:text-accent hover:bg-transparent lg:hidden"
+        onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
+      >
+        <Icon
+          icon={mobileMenuOpen ? "lucide:x" : "lucide:menu"}
+          class="h-7 w-auto"
+        />
+      </button>
     </div>
   </nav>
 </section>
