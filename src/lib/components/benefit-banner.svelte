@@ -38,9 +38,7 @@
           >
             {benefit.text}
           </h3>
-          <p
-            class="text-neutral-content/70 text-xs md:text-sm whitespace-nowrap"
-          >
+          <p class="text-neutral-content/70 text-xs md:text-sm">
             {benefit.subtext}
           </p>
         </div>
