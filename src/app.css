@@ -43,6 +43,7 @@
 
 @layer base {
   html {
+    background: var(--color-neutral);
     scroll-behavior: smooth;
     overflow-x: clip;
   }
