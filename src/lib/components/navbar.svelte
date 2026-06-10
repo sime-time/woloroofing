@@ -5,27 +5,27 @@
   const navItems = [
     {
       label: "Services",
-      href: "#services",
+      href: "/#services",
     },
     {
       label: "Storm & Insurance",
-      href: "#storm",
+      href: "/#storm",
     },
     {
       label: "Our Work",
-      href: "#work",
+      href: "/#work",
     },
     {
       label: "Why Wolo",
-      href: "#why",
+      href: "/#why",
     },
     {
       label: "Service Area",
-      href: "#area",
+      href: "/#area",
     },
     {
       label: "Contact",
-      href: "#contact",
+      href: "/#contact",
     },
   ];
 
@@ -42,7 +42,7 @@
   <nav class="flex justify-between items-center w-full max-w-7xl">
     <div>
       <!-- Logo -->
-      <a href="#hero" class="btn btn-ghost border-none hover:bg-transparent">
+      <a href="/#hero" class="btn btn-ghost border-none hover:bg-transparent">
         <img src="/logo.svg" alt="Wolo Roofing" class="h-14 w-auto">
       </a>
     </div>
