@@ -39,7 +39,7 @@
 
 <section
   id="storm"
-  class="relative flex w-full items-center justify-center overflow-hidden bg-neutral bg-cover bg-center px-6 py-30"
+  class="relative flex w-full items-center justify-center overflow-hidden bg-neutral bg-cover bg-center py-30"
   style="background-image: url(/roof-storm.webp);"
 >
   <div class="absolute inset-0 bg-neutral/50"></div>
@@ -48,9 +48,9 @@
   ></div>
 
   <div
-    class="relative z-10 grid w-full max-w-7xl gap-12 lg:grid-cols-2 lg:items-center"
+    class="relative z-10 grid w-full max-w-7xl min-w-0 gap-12 px-6 lg:grid-cols-2 lg:items-center"
   >
-    <div class="flex flex-col gap-6">
+    <div class="flex min-w-0 flex-col gap-6">
       <p class="label text-accent">
         <Icon icon="lucide:cloud-lightning" class="mr-2" />
         Storm Damage &amp; Insurance Claims
@@ -61,6 +61,7 @@
         <span class="text-accent">We handle the whole claim.</span>
       </h2>
 
+      <!--
       <p class="text-base-100/90 text-lg">
         Filing a roofing insurance claim is confusing, and a missed detail can
         <u>cost you thousands.</u>
@@ -69,24 +70,29 @@
         directly with your adjuster
         <u>so you get the restoration you're owed</u>, without the runaround.
       </p>
+			-->
 
       <ul class="space-y-2">
         {#each listItems as item}
-          <li class="flex gap-2 items-center text-base-100">
-            <Icon icon="lucide:check" class="text-accent size-5" /> {item}
+          <li class="flex items-start gap-2 text-base-100">
+            <Icon
+              icon="lucide:check"
+              class="mt-1 size-5 shrink-0 text-accent"
+            />
+            <span>{item}</span>
           </li>
         {/each}
       </ul>
 
       <button
         type="button"
-        class="btn btn-primary btn-lg uppercase border-2 py-7 w-full md:w-fit"
+        class="btn btn-primary btn-lg h-auto min-h-16 w-full whitespace-normal border-2 py-5 text-sm uppercase md:w-fit md:whitespace-nowrap md:text-base"
       >
         Start my free inspection <Icon icon="lucide:arrow-right" />
       </button>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="grid min-w-0 gap-6 md:grid-cols-2">
       {#each steps as step}
         <StormStepCard
           number={step.number}
