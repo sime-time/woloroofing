@@ -51,8 +51,8 @@
     class="relative z-10 grid w-full max-w-7xl min-w-0 gap-12 px-6 lg:grid-cols-2 lg:items-center"
   >
     <div class="flex min-w-0 flex-col gap-6">
-      <p class="label text-accent">
-        <Icon icon="lucide:cloud-lightning" class="mr-2" />
+      <p class="label text-accent text-xs sm:text-sm">
+        <Icon icon="lucide:cloud-lightning" class="mr-2 shrink-0" />
         Storm Damage &amp; Insurance Claims
       </p>
 
