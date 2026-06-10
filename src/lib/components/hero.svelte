@@ -16,7 +16,7 @@
 >
   <div class="hero-overlay bg-linear-to-r from-neutral/95 to-transparent"></div>
   <div
-    class="hero-content text-neutral-content text-start w-full px-6 md:max-w-7xl mx-auto"
+    class="hero-content text-neutral-content text-start w-full px-6 pt-28 md:max-w-7xl mx-auto"
   >
     <div class="flex flex-col gap-5 w-full justify-start">
       <!-- Label -->
