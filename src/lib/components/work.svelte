@@ -1,6 +1,15 @@
 <script lang="ts">
   const projects = [
     {
+      title: "Full Restoration",
+      description:
+        "Damage and age replaced with a finished roof system built for Indiana weather.",
+      before: "/restoration-before.webp",
+      after: "/restoration-after.webp",
+      beforeAlt: "Roof before WOLO Roofing restoration work",
+      afterAlt: "Roof after WOLO Roofing restoration work",
+    },
+    {
       title: "Siding Refresh",
       description:
         "A weather-worn exterior rebuilt with clean lines, tighter protection, and stronger curb appeal.",
@@ -8,15 +17,6 @@
       after: "/siding-after.webp",
       beforeAlt: "Home exterior before WOLO Roofing siding work",
       afterAlt: "Home exterior after WOLO Roofing siding work",
-    },
-    {
-      title: "Roof Restoration",
-      description:
-        "Storm damage and age replaced with a finished roof system built for Indiana weather.",
-      before: "/restoration-before.webp",
-      after: "/restoration-after.webp",
-      beforeAlt: "Roof before WOLO Roofing restoration work",
-      afterAlt: "Roof after WOLO Roofing restoration work",
     },
   ];
 </script>
@@ -43,7 +43,10 @@
   <div class="grid w-full max-w-6xl gap-6 pt-8 lg:grid-cols-2">
     {#each projects as project}
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <figure class="diff aspect-1297/1113 rounded" tabindex="0">
+      <figure
+        class="diff relative aspect-1297/1113 overflow-hidden rounded"
+        tabindex="0"
+      >
         <div class="diff-item-1 relative" role="img" tabindex="0">
           <img alt={project.beforeAlt} src={project.before}>
 
@@ -57,7 +60,7 @@
           <img alt={project.afterAlt} src={project.after}>
 
           <div
-            class="pointer-events-none absoluteinset-x-0 top-0 z-10 p-3 flex justify-end"
+            class="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-end p-3"
           >
             <span class="badge badge-soft badge-primary badge-lg shadow-md">
               After
@@ -65,6 +68,26 @@
           </div>
         </div>
         <div class="diff-resizer"></div>
+
+        <div
+          class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col gap-3 bg-linear-to-t from-neutral to-neutral/40 p-4 text-neutral-content sm:flex-row sm:items-end sm:justify-between sm:p-5"
+        >
+          <div class="max-w-sm">
+            <h3 class="text-xl font-semibold uppercase sm:text-2xl">
+              {project.title}
+            </h3>
+            <p class="mt-1 text-sm opacity-90 sm:text-base">
+              {project.description}
+            </p>
+          </div>
+
+          <a
+            class="btn btn-primary btn-sm pointer-events-auto self-end shrink-0"
+            href="#contact"
+          >
+            Start your project
+          </a>
+        </div>
       </figure>
     {/each}
   </div>
