@@ -1,2 +1,7 @@
-<h1 class="text-3xl">STORM HIT?</h1>
-<button class="btn btn-primary" type="button">Free Inspection</button>
+<script lang="ts">
+  import Hero from "$lib/components/hero.svelte";
+  import Navbar from "$lib/components/navbar.svelte";
+</script>
+
+<Navbar />
+<Hero />

@@ -3,6 +3,8 @@
   import "../app.css";
   import "@fontsource-variable/libre-franklin/wght.css";
   import "@fontsource/barlow-condensed/400.css";
+  import "@fontsource/barlow-condensed/500.css";
+  import "@fontsource/barlow-condensed/600.css";
   import "@fontsource/barlow-condensed/800.css";
 
   let { children } = $props();
