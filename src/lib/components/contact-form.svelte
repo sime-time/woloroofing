@@ -61,7 +61,7 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <label for="service" class="fieldset-label uppercase">
+      <label for="service[]" class="fieldset-label uppercase">
         How Can We Help?
       </label>
       <select name="service[]" class="select w-full">
