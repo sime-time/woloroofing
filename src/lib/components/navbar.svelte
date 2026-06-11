@@ -30,18 +30,29 @@
   ];
 
   let scrollY = $state(0);
-  let mobileMenuOpen = $state(false);
   const isScrolled = $derived(scrollY > 8);
+
+  let isMobileMenuOpen = $state(false);
+
+  function toggleMenu() {
+    isMobileMenuOpen = !isMobileMenuOpen;
+  }
+
+  function closeMenu() {
+    isMobileMenuOpen = false;
+  }
 </script>
 
 <svelte:window bind:scrollY />
 
-<section
-  class={["fixed top-0 left-0 flex justify-center z-50 transition-colors duration-300 py-4 w-full", 
-		isScrolled ? "bg-neutral shadow-lg" : "bg-linear-to-b from-neutral/70 to-transparent",
+<header
+  class={["fixed top-0 left-0 z-50 flex w-full justify-center transition-colors duration-300", 
+		isScrolled || isMobileMenuOpen ? "bg-neutral shadow-lg" : "bg-linear-to-b from-neutral/70 to-transparent",
 	]}
 >
-  <nav class="flex justify-between items-center w-full max-w-7xl">
+  <section
+    class="flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6"
+  >
     <div>
       <!-- Logo -->
       <a href="/#hero" class="btn btn-ghost border-none hover:bg-transparent">
@@ -49,8 +60,8 @@
       </a>
     </div>
 
-    <!-- Desktop Nav Links -->
-    <div class="hidden lg:flex">
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
         {#each navItems as item}
           <li>
@@ -60,7 +71,7 @@
           </li>
         {/each}
       </ul>
-    </div>
+    </nav>
 
     <!-- End Button -->
     <div class="flex">
@@ -76,19 +87,54 @@
         >Free Inspection</a
       >
 
-      <!-- Mobile Menu Button -->
+      <!-- Mobile Menu Toggle -->
       <button
         type="button"
-        aria-expanded={mobileMenuOpen}
-        aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-controls="mobile-navigation"
+        aria-expanded={isMobileMenuOpen}
+        aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
         class="btn btn-ghost border-none text-base-100 hover:text-accent hover:bg-transparent lg:hidden"
-        onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
+        onclick={toggleMenu}
       >
         <Icon
-          icon={mobileMenuOpen ? "lucide:x" : "lucide:menu"}
+          icon={isMobileMenuOpen ? "lucide:x" : "lucide:menu"}
           class="h-7 w-auto"
         />
       </button>
     </div>
-  </nav>
-</section>
+  </section>
+
+  <!-- Mobile Nav Dropdown -->
+  {#if isMobileMenuOpen}
+    <nav
+      id="mobile-navigation"
+      class="absolute top-full left-0 flex w-full flex-col gap-6 border-t border-neutral-content/30 bg-neutral/95 px-[5%] pt-8 pb-8 text-neutral-content shadow-lg backdrop-blur lg:hidden"
+    >
+      {#each navItems as navItem}
+        <a
+          href={navItem.href}
+          class="text-xl font-medium transition-colors hover:text-accent"
+          onclick={closeMenu}
+        >
+          {navItem.label}
+        </a>
+      {/each}
+      <a
+        href={WOLOPHONE_HREF}
+        class="text-xl font-medium transition-colors hover:text-accent flex gap-3 items-center"
+        onclick={closeMenu}
+      >
+        <Icon icon="lucide:phone" />
+        {WOLOPHONE}
+      </a>
+
+      <a
+        class="btn btn-primary btn-block btn-lg"
+        href="#contact"
+        onclick={closeMenu}
+      >
+        Free Inspection
+      </a>
+    </nav>
+  {/if}
+</header>
