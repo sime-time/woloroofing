@@ -18,7 +18,7 @@ export const contacts = [
   },
   {
     icon: "lucide:map-pin",
-    href: "/#area",
+    href: "#area",
     label: "Central Indiana",
     description: "Indianapolis & surrounding areas",
   },

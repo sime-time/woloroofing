@@ -15,7 +15,7 @@
 <form
   name="woloroofing-contact"
   method="POST"
-  data-netlify={true}
+  data-netlify="true"
   class="card bg-base-200 w-full border border-neutral/10 shadow-sm"
 >
   <div class="card-body text-base-content">
