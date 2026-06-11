@@ -17,9 +17,11 @@
   <enhanced:img
     src="$lib/assets/images/hero-home.webp"
     alt="House with fully restored roof"
-    width="1920"
-    height="1080"
     class="absolute inset-0 h-full w-full object-cover"
+    sizes="100vw"
+    fetchpriority="high"
+    loading="eager"
+    decoding="async"
   />
   <div
     class="absolute inset-0 z-10 bg-linear-to-r from-neutral/95 to-neutral/40"

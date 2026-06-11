@@ -44,9 +44,8 @@
   <enhanced:img
     src="$lib/assets/images/roof-storm.webp"
     alt="Storm-damaged roof during tornado"
-    width="1920"
-    height="1080"
     class="absolute inset-0 h-full w-full object-cover"
+    sizes="100vw"
     loading="lazy"
     decoding="async"
   />
