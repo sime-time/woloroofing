@@ -56,13 +56,12 @@
           Get a free inspection <Icon icon="lucide:arrow-right" />
         </button>
         <a
-          class="btn btn-lg py-7 btn-outline border-2 border-base-100/50 text-primary-content  hover:text-accent hover:border-accent hover:bg-transparent w-full md:w-fit"
+          class="btn btn-lg py-7 btn-outline border-2 border-base-100/50 text-primary-content  hover:text-accent hover:border-accent hover:bg-transparent w-full md:w-fit gap-2"
           href="#phone"
         >
           <Icon icon="lucide:phone" />
-
-          {WOLOPHONE}</a
-        >
+          {WOLOPHONE}
+        </a>
       </div>
 
       <!-- Benefits -->

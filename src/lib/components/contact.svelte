@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { contacts, socials } from "$lib/contact-info";
+  import ContactForm from "./contact-form.svelte";
 </script>
 
 <section
@@ -57,8 +58,6 @@
       </div>
     </div>
 
-    <div>
-      <!-- Contact Form -->
-    </div>
+    <ContactForm />
   </div>
 </section>
