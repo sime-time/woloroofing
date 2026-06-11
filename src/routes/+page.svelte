@@ -4,6 +4,7 @@
   import Navbar from "$lib/components/navbar.svelte";
   import Services from "$lib/components/services.svelte";
   import Storm from "$lib/components/storm.svelte";
+  import Why from "$lib/components/why.svelte";
   import Work from "$lib/components/work.svelte";
 </script>
 
@@ -13,3 +14,4 @@
 <Services />
 <Storm />
 <Work />
+<Why />

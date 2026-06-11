@@ -14,7 +14,9 @@
   class="hero relative min-h-screen overflow-hidden bg-neutral"
   style="background-image: url(/hero-home.webp);"
 >
-  <div class="hero-overlay bg-linear-to-r from-neutral/95 to-transparent"></div>
+  <div
+    class="hero-overlay bg-linear-to-r from-neutral/95 to-neutral/40 md:to-transparent"
+  ></div>
   <div
     class="hero-content text-neutral-content text-start w-full px-6 pt-28 md:max-w-7xl mx-auto"
   >
