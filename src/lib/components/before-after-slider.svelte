@@ -118,6 +118,7 @@
     alt={afterAlt}
     sizes="(min-width: 1024px) 36rem, 100vw"
     decoding="async"
+    loading="lazy"
     draggable="false"
   />
 
@@ -128,6 +129,7 @@
       alt={beforeAlt}
       sizes="(min-width: 1024px) 36rem, 100vw"
       decoding="async"
+      loading="lazy"
       draggable="false"
     />
   </div>
