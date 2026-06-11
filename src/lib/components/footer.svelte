@@ -46,6 +46,14 @@
     <p class="text-sm text-neutral-content/70">
       &copy; {year} Wolo Roofing. All rights reserved.
     </p>
+    <article
+      class="p-2 px-3 bg-base-300/5 border border-base-300/20 flex gap-2 items-center rounded mt-2"
+    >
+      <Icon icon="lucide:shield-check" class="text-accent size-4" />
+      <h4 class=" font-light uppercase text-neutral-content/80">
+        10-Year Worksmanship Warranty
+      </h4>
+    </article>
   </aside>
 
   <nav>
