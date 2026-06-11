@@ -56,7 +56,7 @@
     </div>
 
     <div class="flex min-w-0 flex-col gap-6">
-      <p class="label text-accent text-xs sm:text-sm">Why Wolo?</p>
+      <p class="label text-primary text-xs sm:text-sm">Why Wolo?</p>
 
       <h2 class="uppercase text-base-content text-4xl md:text-6xl">
         A Local Team You Can Actually Trust

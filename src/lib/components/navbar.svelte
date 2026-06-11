@@ -35,8 +35,9 @@
 </script>
 
 <svelte:window bind:scrollY />
+
 <section
-  class={["fixed top-0 left-0 flex justify-center z-20 transition-colors duration-300 py-4 w-full", 
+  class={["fixed top-0 left-0 flex justify-center z-50 transition-colors duration-300 py-4 w-full", 
 		isScrolled ? "bg-neutral shadow-lg" : "bg-linear-to-b from-neutral/70 to-transparent",
 	]}
 >

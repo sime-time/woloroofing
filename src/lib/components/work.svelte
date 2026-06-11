@@ -1,4 +1,6 @@
 <script lang="ts">
+  type DiffSide = "before" | "after";
+
   const projects = [
     {
       title: "Full Restoration",
@@ -19,6 +21,22 @@
       afterAlt: "Home exterior after WOLO Roofing siding work",
     },
   ];
+
+  let activeProjectSides = $state<Array<DiffSide | null>>(
+    projects.map(() => null),
+  );
+
+  function selectProjectSide(index: number, side: DiffSide) {
+    activeProjectSides = activeProjectSides.map((activeSide, activeIndex) =>
+      activeIndex === index ? side : activeSide,
+    );
+  }
+
+  function getDiffStateClass(side: DiffSide | null) {
+    if (side === "before") return "diff-show-before";
+    if (side === "after") return "diff-show-after";
+    return "";
+  }
 </script>
 
 <section
@@ -41,34 +59,42 @@
   </p>
 
   <div class="grid w-full max-w-6xl gap-6 pt-8 lg:grid-cols-2">
-    {#each projects as project}
+    {#each projects as project, index}
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
       <figure
-        class="diff relative aspect-1297/1113 overflow-hidden rounded"
+        class={`diff relative aspect-1297/1113 overflow-hidden rounded ${getDiffStateClass(activeProjectSides[index])}`}
         tabindex="0"
       >
         <div class="diff-item-1 relative" role="img" tabindex="0">
           <img alt={project.beforeAlt} src={project.before}>
-          <div class="absolute inset-x-0 top-0 z-10 p-3">
-            <button
-              type="button"
-              class="badge badge-soft badge-error badge-lg shadow-md"
-            >
-              Before
-            </button>
-          </div>
         </div>
 
         <div class="diff-item-2 relative" role="img">
           <img alt={project.afterAlt} src={project.after}>
-          <div class="absolute inset-x-0 top-0 z-10 flex justify-end p-3">
-            <button
-              type="button"
-              class="badge badge-soft badge-primary badge-lg shadow-md"
-            >
-              After
-            </button>
-          </div>
+        </div>
+
+        <div class="absolute inset-x-0 top-0 z-30 p-3">
+          <button
+            type="button"
+            aria-label={`Show before image for ${project.title}`}
+            aria-pressed={activeProjectSides[index] === "before"}
+            onclick={() => selectProjectSide(index, "before")}
+            class="badge badge-soft badge-error badge-lg shadow-md"
+          >
+            Before
+          </button>
+        </div>
+
+        <div class="absolute inset-x-0 top-0 z-30 flex justify-end p-3">
+          <button
+            type="button"
+            aria-label={`Show after image for ${project.title}`}
+            aria-pressed={activeProjectSides[index] === "after"}
+            onclick={() => selectProjectSide(index, "after")}
+            class="badge badge-soft badge-primary badge-lg shadow-md"
+          >
+            After
+          </button>
         </div>
 
         <div class="diff-resizer"></div>
@@ -91,3 +117,15 @@
     {/each}
   </div>
 </section>
+
+<style>
+  .diff-show-before :global(.diff-resizer) {
+    min-width: 95cqi !important;
+    max-width: 95cqi !important;
+  }
+
+  .diff-show-after :global(.diff-resizer) {
+    min-width: 5cqi !important;
+    max-width: 5cqi !important;
+  }
+</style>

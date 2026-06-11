@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Area from "$lib/components/area.svelte";
   import BenefitBanner from "$lib/components/benefit-banner.svelte";
   import Hero from "$lib/components/hero.svelte";
   import Navbar from "$lib/components/navbar.svelte";
@@ -15,3 +16,4 @@
 <Storm />
 <Work />
 <Why />
+<Area />
