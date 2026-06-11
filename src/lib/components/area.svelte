@@ -9,7 +9,6 @@
     "Westfield",
     "Brownburg",
     "Greenwood",
-    "Central Indiana",
     "Avon",
   ];
 </script>
