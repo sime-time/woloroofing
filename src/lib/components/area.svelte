@@ -15,7 +15,7 @@
 </script>
 
 <section
-  id="storm"
+  id="area"
   class="flex w-full items-center justify-center bg-neutral py-30"
 >
   <div
@@ -49,8 +49,19 @@
       </ul>
     </div>
 
-    <div>
-      <!-- Map -->
+    <div
+      class="overflow-hidden rounded-lg aspect-4/3 w-full border border-white/10"
+    >
+      <iframe
+        src="https://www.google.com/maps?q=Indianapolis,Indiana&output=embed"
+        width="100%"
+        height="100%"
+        style="border:0"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="WOLO Roofing service area in Central Indiana"
+      ></iframe>
     </div>
   </div>
 </section>
