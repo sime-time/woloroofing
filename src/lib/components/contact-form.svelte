@@ -18,6 +18,7 @@
   data-netlify="true"
   class="card bg-base-200 w-full border border-neutral/10 shadow-sm"
 >
+  <input type="hidden" name="form-name" value="woloroofing-contact">
   <div class="card-body text-base-content">
     <h3 class="card-title uppercase text-3xl font-semibold tracking-wide mb-2">
       Request an Inspection
