@@ -39,12 +39,19 @@
 
 <section
   id="storm"
-  class="relative flex w-full items-center justify-center overflow-hidden bg-neutral bg-cover bg-center py-30"
-  style="background-image: url(/roof-storm.webp);"
+  class="relative flex w-full items-center justify-center overflow-hidden bg-neutral py-30"
 >
-  <div class="absolute inset-0 bg-neutral/50"></div>
+  <enhanced:img
+    src="$lib/assets/images/roof-storm.webp"
+    alt="Storm-damaged roof during tornado"
+    width="1920"
+    height="1080"
+    class="absolute inset-0 h-full w-full object-cover"
+    loading="lazy"
+    decoding="async"
+  />
   <div
-    class="absolute inset-0 bg-linear-to-r from-neutral via-neutral/60 to-neutral/30 md:to-transparent"
+    class="absolute inset-0 bg-linear-to-r from-neutral via-neutral/70 to-neutral/20"
   ></div>
 
   <div

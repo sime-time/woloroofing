@@ -1,4 +1,8 @@
 <script lang="ts">
+  import restorationAfter from "$lib/assets/images/restoration-after.webp?enhanced";
+  import restorationBefore from "$lib/assets/images/restoration-before.webp?enhanced";
+  import sidingAfter from "$lib/assets/images/siding-after.webp?enhanced";
+  import sidingBefore from "$lib/assets/images/siding-before.webp?enhanced";
   import BeforeAfterSlider from "./before-after-slider.svelte";
 
   const projects = [
@@ -6,8 +10,8 @@
       title: "Full Restoration",
       description:
         "Damage and age replaced with a finished roof system built for Indiana weather.",
-      before: "/restoration-before.webp",
-      after: "/restoration-after.webp",
+      before: restorationBefore,
+      after: restorationAfter,
       beforeAlt: "Roof before WOLO Roofing restoration work",
       afterAlt: "Roof after WOLO Roofing restoration work",
     },
@@ -16,8 +20,8 @@
       title: "Siding Refresh",
       description:
         "A weather-worn exterior rebuilt with clean lines, tighter protection, and stronger curb appeal.",
-      before: "/siding-before.webp",
-      after: "/siding-after.webp",
+      before: sidingBefore,
+      after: sidingAfter,
       beforeAlt: "Home exterior before WOLO Roofing siding work",
       afterAlt: "Home exterior after WOLO Roofing siding work",
     },

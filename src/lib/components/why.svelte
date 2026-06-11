@@ -37,11 +37,11 @@
     class="relative z-10 grid w-full max-w-7xl min-w-0 gap-12 px-6 lg:grid-cols-2 lg:items-center"
   >
     <div class="relative min-w-0 pr-6 pb-8 sm:pr-8">
-      <img
-        src="/why-wolo-team.jpg"
+      <enhanced:img
+        src="$lib/assets/images/why-wolo-team.jpg"
         alt="WOLO team installing exterior materials on a home"
         class="w-full rounded-lg object-cover object-center h-136 sm:h-160 lg:h-184"
-      >
+      />
 
       <div
         class="absolute bottom-0 right-0 flex flex-col items-center justify-center rounded-lg bg-primary text-center text-primary-content shadow-xl p-3 w-36 h-32"

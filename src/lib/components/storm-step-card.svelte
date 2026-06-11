@@ -18,7 +18,7 @@
     >
       {title}
     </h3>
-    <p class="leading-8 text-neutral-content/70">
+    <p class="leading-8 text-neutral-content/75">
       {description}
     </p>
   </div>

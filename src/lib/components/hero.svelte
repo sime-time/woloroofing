@@ -12,13 +12,21 @@
 <section
   id="hero"
   class="hero relative min-h-screen overflow-hidden bg-neutral"
-  style="background-image: url(/hero-home.webp);"
 >
+  <!-- Image + Overlay -->
+  <enhanced:img
+    src="$lib/assets/images/hero-home.webp"
+    alt="House with fully restored roof"
+    width="1920"
+    height="1080"
+    class="absolute inset-0 h-full w-full object-cover"
+  />
   <div
-    class="hero-overlay bg-linear-to-r from-neutral/95 to-neutral/40 md:to-transparent"
+    class="absolute inset-0 z-10 bg-linear-to-r from-neutral/95 to-neutral/40"
   ></div>
+
   <div
-    class="hero-content text-neutral-content text-start w-full px-6 pt-28 md:max-w-7xl mx-auto"
+    class="hero-content text-neutral-content text-start w-full px-6 pt-28 md:max-w-7xl mx-auto z-30"
   >
     <div class="flex flex-col gap-5 w-full justify-start">
       <!-- Label -->

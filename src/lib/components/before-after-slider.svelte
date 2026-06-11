@@ -112,20 +112,20 @@
   class="group relative aspect-1297/1113 w-full overflow-hidden rounded bg-base-200 text-base-content select-none"
   style={`--before-after-value: ${value}%;`}
 >
-  <img
+  <enhanced:img
     class="h-full w-full object-cover"
     src={afterSrc}
     alt={afterAlt}
     draggable="false"
-  >
+  />
 
   <div class="before-image absolute inset-0">
-    <img
+    <enhanced:img
       class="h-full w-full object-cover"
       src={beforeSrc}
       alt={beforeAlt}
       draggable="false"
-    >
+    />
   </div>
 
   {#if showLabels}
