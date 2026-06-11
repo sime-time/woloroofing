@@ -49,24 +49,30 @@
       >
         <div class="diff-item-1 relative" role="img" tabindex="0">
           <img alt={project.beforeAlt} src={project.before}>
-          <div class="pointer-events-none absolute inset-x-0 top-0 z-10 p-3">
-            <span class="badge badge-soft badge-error badge-lg shadow-md">
-              Before
-            </span>
-          </div>
         </div>
 
         <div class="diff-item-2 relative" role="img">
           <img alt={project.afterAlt} src={project.after}>
-          <div
-            class="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-end p-3"
-          >
-            <span class="badge badge-soft badge-primary badge-lg shadow-md">
-              After
-            </span>
-          </div>
         </div>
         <div class="diff-resizer"></div>
+
+        <div class="absolute inset-x-0 top-0 z-10 p-3">
+          <button
+            type="button"
+            class="badge badge-soft badge-error badge-lg shadow-md"
+          >
+            Before
+          </button>
+        </div>
+
+        <div class="absolute inset-x-0 top-0 z-10 flex justify-end p-3">
+          <button
+            type="button"
+            class="badge badge-soft badge-primary badge-lg shadow-md"
+          >
+            After
+          </button>
+        </div>
 
         <div
           class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex gap-3 bg-linear-to-t from-neutral to-neutral/40 p-4 text-neutral-content sm:flex-row sm:items-end justify-between sm:p-5"
