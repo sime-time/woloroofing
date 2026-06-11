@@ -117,7 +117,6 @@
     src={afterSrc}
     alt={afterAlt}
     sizes="(min-width: 1024px) 36rem, 100vw"
-    loading="lazy"
     decoding="async"
     draggable="false"
   />
@@ -128,7 +127,6 @@
       src={beforeSrc}
       alt={beforeAlt}
       sizes="(min-width: 1024px) 36rem, 100vw"
-      loading="lazy"
       decoding="async"
       draggable="false"
     />
