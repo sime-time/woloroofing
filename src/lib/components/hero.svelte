@@ -24,7 +24,7 @@
     decoding="async"
   />
   <div
-    class="absolute inset-0 z-10 bg-linear-to-r from-neutral/95 to-neutral/40"
+    class="absolute inset-0 z-10 bg-linear-to-r from-neutral/95 to-neutral/55"
   ></div>
 
   <div
