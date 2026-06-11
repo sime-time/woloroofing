@@ -1,5 +1,6 @@
 <script lang="ts">
   interface Props {
+    title: string;
     beforeSrc: string;
     afterSrc: string;
     beforeAlt?: string;
@@ -11,6 +12,7 @@
   }
 
   const {
+    title,
     beforeSrc,
     afterSrc,
     beforeAlt = "Before image",
@@ -127,22 +129,47 @@
   </div>
 
   {#if showLabels}
-    <div class="pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-between gap-3 p-3">
-      <span class="badge badge-soft badge-error badge-lg shadow-md">Before</span>
-      <span class="badge badge-soft badge-primary badge-lg shadow-md">After</span>
+    <div class="absolute inset-x-0 top-0 z-30 flex justify-between gap-3 p-3">
+      <button
+        type="button"
+        class="badge badge-soft badge-error badge-lg shadow-md"
+      >
+        Before
+      </button>
+      <button
+        type="button"
+        class="badge badge-soft badge-primary badge-lg shadow-md"
+      >
+        After
+      </button>
+    </div>
+
+    <div
+      class="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex gap-3 bg-linear-to-t from-neutral to-neutral/40 p-4 text-neutral-content sm:flex-row sm:items-end justify-between sm:p-5"
+    >
+      <h3 class="text-xl font-semibold uppercase sm:text-2xl">
+        {title}
+      </h3>
+
+      <a
+        class="btn btn-primary btn-sm pointer-events-auto shrink-0"
+        href="#contact"
+      >
+        Start your project
+      </a>
     </div>
   {/if}
 
   <button
     type="button"
-    class="handle absolute inset-y-0 z-30 flex w-12 -translate-x-1/2 cursor-ew-resize items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-100 disabled:cursor-not-allowed disabled:opacity-70"
+    class="handle absolute inset-y-0 z-10 flex w-12 -translate-x-1/2 cursor-ew-resize items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-100 disabled:cursor-not-allowed disabled:opacity-70"
     aria-label="Image comparison slider"
     aria-valuemin="0"
     aria-valuemax="100"
     aria-valuenow={Math.round(value)}
     aria-valuetext={`${Math.round(value)}% before image visible`}
     aria-disabled={disabled}
-    disabled={disabled}
+    {disabled}
     role="slider"
     onpointerdown={handlePointerDown}
     onpointermove={handlePointerMove}
@@ -156,8 +183,12 @@
       aria-hidden="true"
     >
       <span class="flex items-center gap-1">
-        <span class="h-3 w-3 rotate-45 border-b-2 border-l-2 border-current"></span>
-        <span class="h-3 w-3 rotate-45 border-r-2 border-t-2 border-current"></span>
+        <span
+          class="h-3 w-3 rotate-45 border-b-2 border-l-2 border-current"
+        ></span>
+        <span
+          class="h-3 w-3 rotate-45 border-r-2 border-t-2 border-current"
+        ></span>
       </span>
     </span>
   </button>

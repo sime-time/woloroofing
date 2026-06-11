@@ -1,4 +1,6 @@
 <script lang="ts">
+  import BeforeAfterSlider from "./before-after-slider.svelte";
+
   const projects = [
     {
       title: "Full Restoration",
@@ -44,55 +46,14 @@
   <!-- Before and After Sliders -->
   <div class="grid w-full max-w-6xl gap-6 pt-8 lg:grid-cols-2">
     {#each projects as project}
-      <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-
-      <figure
-        class="diff relative aspect-1297/1113 overflow-hidden rounded"
-        tabindex="0"
-      >
-        <div class="diff-item-1 relative" role="img" tabindex="0">
-          <img alt={project.beforeAlt} src={project.before}>
-        </div>
-
-        <div class="diff-item-2 relative" role="img">
-          <img alt={project.afterAlt} src={project.after}>
-        </div>
-
-        <div class="diff-resizer"></div>
-
-        <div class="absolute inset-x-0 top-0 z-10 p-3">
-          <button
-            type="button"
-            class="badge badge-soft badge-error badge-lg shadow-md"
-          >
-            Before
-          </button>
-        </div>
-
-        <div class="absolute inset-x-0 top-0 z-10 flex justify-end p-3">
-          <button
-            type="button"
-            class="badge badge-soft badge-primary badge-lg shadow-md"
-          >
-            After
-          </button>
-        </div>
-
-        <div
-          class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex gap-3 bg-linear-to-t from-neutral to-neutral/40 p-4 text-neutral-content sm:flex-row sm:items-end justify-between sm:p-5"
-        >
-          <h3 class="text-xl font-semibold uppercase sm:text-2xl">
-            {project.title}
-          </h3>
-
-          <a
-            class="btn btn-primary btn-sm pointer-events-auto shrink-0"
-            href="#contact"
-          >
-            Start your project
-          </a>
-        </div>
-      </figure>
+      <BeforeAfterSlider
+        title={project.title}
+        beforeSrc={project.before}
+        afterSrc={project.after}
+        beforeAlt={project.beforeAlt}
+        afterAlt={project.afterAlt}
+        showLabels={true}
+      />
     {/each}
   </div>
 </section>
