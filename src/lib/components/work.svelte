@@ -44,7 +44,7 @@
   </p>
 
   <!-- Before and After Sliders -->
-  <div class="grid w-full max-w-6xl gap-6 pt-8 lg:grid-cols-2">
+  <div class="grid w-full max-w-6xl gap-7 pt-8 lg:grid-cols-2">
     {#each projects as project}
       <BeforeAfterSlider
         title={project.title}

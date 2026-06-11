@@ -1,40 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { WOLOEMAIL, WOLOPHONE } from "$lib/constants";
-
-  const contacts = [
-    {
-      icon: "lucide:phone",
-      href: WOLOPHONE,
-      label: WOLOPHONE,
-      description: "David Woloszyn · Owner",
-    },
-    {
-      icon: "lucide:mail",
-      href: WOLOEMAIL,
-      label: WOLOEMAIL,
-      description: "Send us the details",
-    },
-    {
-      icon: "lucide:map-pin",
-      href: "/#area",
-      label: "Central Indiana",
-      description: "Indianapolis & surrounding areas",
-    },
-  ];
-
-  const socials = [
-    {
-      logo: "lucide:facebook",
-      link: "",
-      type: "facebook",
-    },
-    {
-      logo: "lucide:instagram",
-      link: "",
-      type: "instagram",
-    },
-  ];
+  import { contacts, socials } from "$lib/contact-info";
 </script>
 
 <section
@@ -81,6 +47,7 @@
             <a
               href={social.link}
               class="btn btn-square btn-neutral btn-lg rounded-lg"
+              aria-label={social.type}
             >
               <Icon icon={social.logo} />
             </a>

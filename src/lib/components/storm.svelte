@@ -44,7 +44,7 @@
 >
   <div class="absolute inset-0 bg-neutral/50"></div>
   <div
-    class="absolute inset-0 bg-linear-to-r from-neutral via-neutral/80 to-neutral/30"
+    class="absolute inset-0 bg-linear-to-r from-neutral via-neutral/60 to-neutral/30 md:to-transparent"
   ></div>
 
   <div

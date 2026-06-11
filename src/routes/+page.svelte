@@ -2,6 +2,7 @@
   import Area from "$lib/components/area.svelte";
   import BenefitBanner from "$lib/components/benefit-banner.svelte";
   import Contact from "$lib/components/contact.svelte";
+  import Footer from "$lib/components/footer.svelte";
   import Hero from "$lib/components/hero.svelte";
   import Navbar from "$lib/components/navbar.svelte";
   import Services from "$lib/components/services.svelte";
@@ -19,3 +20,4 @@
 <Why />
 <Area />
 <Contact />
+<Footer />

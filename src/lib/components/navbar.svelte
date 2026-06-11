@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { WOLOPHONE } from "$lib/constants";
+  import { WOLOPHONE, WOLOPHONE_HREF } from "$lib/contact-info";
 
   const navItems = [
     {
@@ -66,7 +66,7 @@
     <div class="flex">
       <a
         class="btn btn-ghost text-base-100 hover:text-accent hidden lg:flex border-none hover:bg-transparent"
-        href="#phone"
+        href={WOLOPHONE_HREF}
       >
         <Icon icon="lucide:phone" />
 

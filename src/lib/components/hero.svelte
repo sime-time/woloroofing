@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { WOLOPHONE } from "$lib/constants";
+  import { WOLOPHONE } from "$lib/contact-info";
 
   const benefits = [
     "Free Inspections",
