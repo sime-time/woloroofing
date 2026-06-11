@@ -50,9 +50,11 @@
       class="p-2 px-3 bg-base-300/5 border border-base-300/20 flex gap-2 items-center rounded mt-2"
     >
       <Icon icon="lucide:shield-check" class="text-accent size-4" />
-      <h4 class=" font-light uppercase text-neutral-content/80 tracking-wider">
+      <span
+        class="font-heading font-light uppercase text-neutral-content/80 tracking-wider"
+      >
         10-Year Worksmanship Warranty
-      </h4>
+      </span>
     </article>
   </aside>
 

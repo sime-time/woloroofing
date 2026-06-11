@@ -33,11 +33,11 @@
       >
         <Icon icon={benefit.icon} class="text-accent size-8 shrink-0" />
         <div class="flex flex-col">
-          <h3
-            class="text-neutral-content font-semibold tracking-wide uppercase  md:text-lg"
+          <p
+            class="font-heading text-neutral-content font-semibold tracking-wide uppercase  md:text-lg"
           >
             {benefit.text}
-          </h3>
+          </p>
           <p class="text-neutral-content/70 text-xs md:text-sm">
             {benefit.subtext}
           </p>

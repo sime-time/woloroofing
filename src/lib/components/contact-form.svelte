@@ -26,7 +26,7 @@
 
     <div class="grid grid-cols-2 gap-3">
       <fieldset class="fieldset">
-        <legend class="fieldset-legend uppercase">Name</legend>
+        <label for="name" class="fieldset-label uppercase">Name</label>
         <input
           name="name"
           id="name"
@@ -37,7 +37,7 @@
       </fieldset>
 
       <fieldset class="fieldset">
-        <legend class="fieldset-legend uppercase">Phone</legend>
+        <label for="phone" class="fieldset-label uppercase">Phone</label>
         <input
           name="phone"
           id="phone"
@@ -50,7 +50,7 @@
     </div>
 
     <fieldset class="fieldset">
-      <legend class="fieldset-legend uppercase">Email</legend>
+      <label for="email" class="fieldset-label uppercase">Email</label>
       <input
         name="email"
         id="email"
@@ -61,7 +61,9 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend class="fieldset-legend uppercase">How Can We Help?</legend>
+      <label for="service" class="fieldset-label uppercase">
+        How Can We Help?
+      </label>
       <select name="service[]" class="select w-full">
         {#each serviceOptions as service}
           <option value={service}>{service}</option>
@@ -70,7 +72,7 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend class="fieldset-legend uppercase">Message</legend>
+      <label for="message" class="fieldset-label uppercase">Message</label>
       <textarea
         name="message"
         class="textarea w-full "
