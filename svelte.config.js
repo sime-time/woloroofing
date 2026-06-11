@@ -9,6 +9,8 @@ const config = {
   },
   kit: {
     adapter: adapter(),
+    // If CSS is less than 16kb put it directly inside html file
+    inlineStyleThreshold: 16000,
   },
 };
 
