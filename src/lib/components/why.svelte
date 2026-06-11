@@ -38,7 +38,7 @@
   >
     <div class="relative min-w-0 pr-6 pb-8 sm:pr-8">
       <enhanced:img
-        src="$lib/assets/images/why-wolo-team.jpg"
+        src="$lib/assets/images/why-wolo-team.webp"
         alt="WOLO team installing exterior materials on a home"
         class="w-full rounded-lg object-cover object-center h-136 sm:h-160 lg:h-184"
         sizes="(min-width: 1024px) 50vw, 100vw"
