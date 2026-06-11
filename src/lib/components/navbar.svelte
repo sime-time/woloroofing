@@ -56,7 +56,13 @@
     <div>
       <!-- Logo -->
       <a href="/#hero" class="btn btn-ghost border-none hover:bg-transparent">
-        <img src="/logo.svg" alt="Wolo Roofing" class="h-14 w-auto">
+        <img
+          src="/logo.svg"
+          alt="Wolo Roofing"
+          class="h-14 w-auto"
+          width="300"
+          height="300"
+        >
       </a>
     </div>
 

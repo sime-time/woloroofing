@@ -37,7 +37,13 @@
 >
   <aside class="max-w-sm">
     <a href="/#hero" aria-label="Wolo Roofing home" class="inline-flex">
-      <img src="/logo.svg" alt="Wolo Roofing" class="h-16 w-auto">
+      <img
+        src="/logo.svg"
+        alt="Wolo Roofing"
+        class="h-16 w-auto"
+        width="300"
+        height="300"
+      >
     </a>
     <p class="text-sm leading-relaxed text-neutral-content/80">
       Wolo Roofing provides residential roofing, storm restoration, and exterior
