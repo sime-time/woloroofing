@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { WOLOPHONE } from "$lib/contact-info";
+  import { WOLOPHONE, WOLOPHONE_HREF } from "$lib/contact-info";
 
   const benefits = [
     "Free Inspections",
@@ -67,7 +67,7 @@
         </button>
         <a
           class="btn btn-lg py-7 btn-outline border-2 border-base-100/50 text-primary-content  hover:text-accent hover:border-accent hover:bg-transparent w-full md:w-fit gap-2"
-          href="#phone"
+          href={WOLOPHONE_HREF}
         >
           <Icon icon="lucide:phone" />
           {WOLOPHONE}

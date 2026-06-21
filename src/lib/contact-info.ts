@@ -1,6 +1,6 @@
 export const WOLOPHONE = "847-682-5236";
 export const WOLOEMAIL = "info@woloroofing.com";
-export const WOLOPHONE_HREF = "tel:+8746825236";
+export const WOLOPHONE_HREF = "tel:+18746825236";
 export const WOLOEMAIL_HREF = `mailto:${WOLOEMAIL}`;
 
 export const contacts = [
