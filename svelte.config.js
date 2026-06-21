@@ -1,4 +1,4 @@
-import adapter from "@sveltejs/adapter-netlify";
+import adapter from "@sveltejs/adapter-auto";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,8 +9,6 @@ const config = {
   },
   kit: {
     adapter: adapter(),
-    // If CSS is less than 16kb put it directly inside html file
-    // inlineStyleThreshold: 16000,
   },
 };
 
