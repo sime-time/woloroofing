@@ -31,6 +31,7 @@ export const POST: RequestHandler = async ({ request }) => {
     return json(
       {
         success: false,
+        resetTurnstile: false,
         errors: validation.error.issues,
       },
       { status: 400 },
@@ -48,6 +49,7 @@ export const POST: RequestHandler = async ({ request }) => {
     return json(
       {
         success: false,
+        resetTurnstile: true,
         errors: [{ message: "Verification failed. Please try again." }],
       },
       { status: 400 },
@@ -67,7 +69,11 @@ export const POST: RequestHandler = async ({ request }) => {
   } catch (err) {
     console.error("Lead insertion error:", err);
     return json(
-      { errors: [{ message: "Your message did not save. Please try again." }] },
+      {
+        success: false,
+        resetTurnstile: true,
+        errors: [{ message: "Your message did not save. Please try again." }],
+      },
       { status: 500 },
     );
   }
@@ -91,7 +97,11 @@ ${contact.message || "No message provided"}`,
 
   if (error) {
     return json(
-      { errors: [{ message: "Could not send message. Please try again." }] },
+      {
+        success: false,
+        resetTurnstile: true,
+        errors: [{ message: "Could not send message. Please try again." }],
+      },
       { status: 500 },
     );
   }

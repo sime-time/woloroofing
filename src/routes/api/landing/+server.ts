@@ -40,6 +40,7 @@ export const POST: RequestHandler = async ({ request }) => {
     return json(
       {
         success: false,
+        resetTurnstile: false,
         errors: validation.error.issues,
       },
       { status: 400 },
@@ -57,6 +58,7 @@ export const POST: RequestHandler = async ({ request }) => {
     return json(
       {
         success: false,
+        resetTurnstile: true,
         errors: [{ message: "Verification failed. Please try again." }],
       },
       { status: 400 },
@@ -78,6 +80,8 @@ export const POST: RequestHandler = async ({ request }) => {
     console.error("Lead insertion error:", err);
     return json(
       {
+        success: false,
+        resetTurnstile: true,
         errors: [
           { message: "Your contact info was not saved. Please try again." },
         ],
