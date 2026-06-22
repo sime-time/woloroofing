@@ -59,12 +59,12 @@
 
       <!-- Buttons -->
       <div class="flex flex-col md:flex-row gap-4 items-center">
-        <button
-          type="button"
+        <a
+          href="#contact"
           class="btn btn-primary btn-lg uppercase border-2 py-7 w-full md:w-fit"
         >
           Get a free inspection <Icon icon="lucide:arrow-right" />
-        </button>
+        </a>
         <a
           class="btn btn-lg py-7 btn-outline border-2 border-base-100/50 text-primary-content  hover:text-accent hover:border-accent hover:bg-transparent w-full md:w-fit gap-2"
           href={WOLOPHONE_HREF}
