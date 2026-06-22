@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import { PUBLIC_CF_TURNSTILE_SITE_KEY } from "$env/static/public";
 
   let error = $state("");
   let success = $state(false);
@@ -81,6 +82,8 @@
         </span>
       </label>
     </fieldset>
+
+    <div class="cf-turnstile" data-sitekey={PUBLIC_CF_TURNSTILE_SITE_KEY}></div>
 
     {#if success}
       <p class="text-success text-lg font-semibold">

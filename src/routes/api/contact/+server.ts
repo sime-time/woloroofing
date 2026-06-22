@@ -37,7 +37,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const contact = validation.data;
 
   const { data, error } = await resend.emails.send({
-    from: "WOLO Roofing <leads@updates.woloroofing.com>",
+    from: "WOLO Roofing Leads <leads@updates.woloroofing.com>",
     to: [WOLOEMAIL],
     replyTo: contact.email,
     subject: "New Lead from Contact Form",

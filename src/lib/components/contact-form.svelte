@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import { PUBLIC_CF_TURNSTILE_SITE_KEY } from "$env/static/public";
 
   const serviceOptions = [
     "Roofing",
@@ -89,6 +90,8 @@
         placeholder="Tell us about your roof or project..."
       ></textarea>
     </fieldset>
+
+    <div class="cf-turnstile" data-sitekey={PUBLIC_CF_TURNSTILE_SITE_KEY}></div>
 
     {#if error}
       <p class="text-error">{error}</p>
