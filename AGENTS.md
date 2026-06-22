@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Build an AI-powered lead generation and qualification system for **Wolo Roofing**, a roofing company in Indianapolis, IN owned by David Woloszyn. The system captures inbound leads from a landing page, instantly engages them via AI-driven iMessage conversation to qualify the lead, and books a free inspection appointment via Cal.com if qualified. David is notified with a structured summary after each booking.
+Build an AI-powered lead generation and qualification system for **Wolo Roofing**, a roofing company in Indianapolis, IN owned by David Woloszyn. The system captures inbound leads from a landing page, instantly engages them via AI-driven SMS conversation to qualify the lead, and books a free inspection appointment via Cal.com if qualified. David is notified with a structured summary after each booking.
 
 This is a real client project with a live deadline (storm damage event currently happening in Indianapolis — system needs to be functional ASAP, target: start of next week).
 
@@ -15,11 +15,7 @@ This is a real client project with a live deadline (storm damage event currently
 - **Frontend/Backend:** SvelteKit (existing site already built and live, includes home page + contact form)
 - **Hosting:** Migrating from Netlify to **Railway** (need persistent backend server, not static CDN, to support webhooks and real-time SMS triggers)
 - **Database:** **Postgres** (via Railway addon or Neon.tech) — NOT SQLite (Railway filesystem is ephemeral; SQLite would also choke on concurrent writes during lead spikes)
-- **SMS/iMessage:** **Blooio** (https://blooio.com) — sends/receives real blue-bubble iMessages via API. NOT Twilio. Chosen because:
-  - Higher reply rates than green-bubble SMS (~2x per Blooio's own benchmarks)
-  - All leads are **inbound/opt-in** (homeowner submitted a form), so no cold-outbound compliance overhead (10DLC, hybrid SMS-to-iMessage handoff) is needed — that's only required for cold outbound, which is out of scope
-  - Plan: Commercial Shared ($89/mo, 15 new conversations/day) to start, or Commercial Dedicated ($289/mo, unlimited) if volume justifies it. Avoid Starter — shared/limited number isn't suitable for a business' public-facing number.
-  - Includes call forwarding — David's Blooio number forwards calls to his personal cell. No separate Google Voice number needed.
+- **SMS:** **Twilio** — sends/receives opt-in SMS messages via API for lead qualification and follow-up
 - **AI conversation engine:** **Claude API** (Anthropic) — powers the qualification conversation as a persona ("Sarah" from Wolo Roofing), not disclosed as AI
 - **Scheduling:** **Cal.com** — booking link sent to qualified leads for free inspection appointments
 - **Bot protection:** Cloudflare Turnstile + honeypot field + IP rate limiting on form submission endpoint
@@ -34,7 +30,7 @@ Ad (Facebook/Google) or organic search
   → SvelteKit form submission → Railway-hosted backend endpoint
   → Bot checks (Turnstile, honeypot, rate limit)
   → Insert lead into Postgres (leads table)
-  → Trigger Blooio: AI sends first iMessage within 60 seconds
+  → Trigger Twilio: AI sends first SMS within 60 seconds
   → Claude-powered conversation qualifies the lead:
       1. Confirm storm/roof damage
       2. Type of damage (roof / gutters / siding)
@@ -118,8 +114,8 @@ Rules:
    - Migrate site from Netlify → Railway
    - Set up Railway Postgres
    - Build `/landing` page (name + phone form only)
-   - Build `/api/lead` endpoint: bot checks → insert to Postgres → trigger Blooio
-   - Wire Blooio webhook → Claude API → conversation loop → Postgres message log
+   - Build `/api/lead` endpoint: bot checks → insert to Postgres → trigger Twilio
+   - Wire Twilio webhook → Claude API → conversation loop → Postgres message log
    - Cal.com link handoff on qualified lead
    - David notification on booking (summary format above)
 2. **Important, can trail slightly:**
@@ -134,8 +130,7 @@ Rules:
 ## Things Explicitly Out of Scope / Decided Against
 
 - **GoHighLevel** — not needed for a single client; custom build gives more control and is the developer's own IP
-- **Twilio** — not needed since all leads are inbound/opt-in; Blooio handles this natively without 10DLC/compliance overhead
-- **Google Voice** — can't integrate with APIs/automation; Blooio number with call forwarding replaces this need
+- **Google Voice** — can't integrate reliably with APIs/automation; Twilio will handle programmatic SMS instead
 - **SQLite** — ephemeral storage on Railway + no concurrent write support; Postgres chosen instead, also leaves room for pgvector use later (lead scoring, conversation embeddings)
 - **AI agent autonomously managing David's calendar without confirmation** — at this stage, appointments should still be visible/confirmable by David, not fully autonomous
 
@@ -143,6 +138,6 @@ Rules:
 
 ## Open Questions / Things to Verify Before/During Build
 
-- Confirm Blooio plan tier based on actual lead volume once ads are live (start Shared, upgrade to Dedicated if near daily cap)
-- Confirm with David: single business phone number (Blooio) for both AI qualification texts and his personal follow-up, or separate numbers
+- Confirm Twilio number setup and SMS compliance requirements before launch
+- Confirm with David: single business phone number for both AI qualification texts and his personal follow-up, or separate numbers
 - Define and document the commission verification process with David (signed contract copy or screenshot on close, payment within X days of signed contract/insurance check clearing) — this is a business process issue, not something to solve in code
