@@ -31,7 +31,6 @@ export const POST: RequestHandler = async ({ request }) => {
     return json(
       {
         success: false,
-        resetTurnstile: false,
         errors: validation.error.issues,
       },
       { status: 400 },
@@ -49,8 +48,12 @@ export const POST: RequestHandler = async ({ request }) => {
     return json(
       {
         success: false,
-        resetTurnstile: true,
-        errors: [{ message: "Verification failed. Please try again." }],
+        errors: [
+          {
+            message:
+              "Verification failed. Please refresh the page and try again.",
+          },
+        ],
       },
       { status: 400 },
     );
@@ -71,8 +74,12 @@ export const POST: RequestHandler = async ({ request }) => {
     return json(
       {
         success: false,
-        resetTurnstile: true,
-        errors: [{ message: "Your message did not save. Please try again." }],
+        errors: [
+          {
+            message:
+              "Your message did not save. Please refresh the page and try again.",
+          },
+        ],
       },
       { status: 500 },
     );
@@ -99,8 +106,12 @@ ${contact.message || "No message provided"}`,
     return json(
       {
         success: false,
-        resetTurnstile: true,
-        errors: [{ message: "Could not send message. Please try again." }],
+        errors: [
+          {
+            message:
+              "Could not send message. Please refresh the page and try again.",
+          },
+        ],
       },
       { status: 500 },
     );

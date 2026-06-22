@@ -21,12 +21,6 @@
 
     if (!response.ok) {
       error = result.errors[0].message;
-
-      if (result.resetTurnstile) {
-        // @ts-expect-error
-        window.turnstile?.reset();
-      }
-
       return;
     }
 

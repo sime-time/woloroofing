@@ -3,7 +3,7 @@ export const WOLOEMAIL = "info@woloroofing.com";
 export const WOLOPHONE_HREF = "tel:+18746825236";
 export const WOLOEMAIL_HREF = `mailto:${WOLOEMAIL}`;
 export const SMS_CONSENT_TEXT =
-  "I agree to receive text messages from WOLO Roofing about my inspection request. Msg &amp; data rates may apply.";
+  "I agree to receive text messages from WOLO Roofing about my inspection request. Msg & data rates may apply.";
 
 export const contacts = [
   {
