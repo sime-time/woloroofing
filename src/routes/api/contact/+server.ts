@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import z from "zod";
 import { RESEND_API_KEY } from "$env/static/private";
 import { WOLOEMAIL } from "$lib/contact-info";
+import { getRequestIp, validateTurnstile } from "$lib/server/turnstile";
 import type { RequestHandler } from "./$types";
 
 const resend = new Resend(RESEND_API_KEY);
@@ -17,6 +18,23 @@ const contactSchema = z.object({
 export const POST: RequestHandler = async ({ request }) => {
   const form = await request.formData();
 
+  const token = form.get("cf-turnstile-response");
+  const remoteip = getRequestIp(request);
+
+  const turnstile = await validateTurnstile(token, remoteip);
+
+  if (!turnstile.success) {
+    // json errors must be the same shape as ZodError (errors.issues[0].message)
+    return json(
+      {
+        success: false,
+        errors: [{ message: "Verification failed. Please try again." }],
+      },
+      { status: 400 },
+    );
+  }
+
+  // Validate form input
   const validation = contactSchema.safeParse({
     name: form.get("name"),
     email: form.get("email"),
@@ -53,7 +71,7 @@ ${contact.message || "No message provided"}`,
   });
 
   if (error) {
-    // errors must be the same shape as ZodError
+    // json errors must be the same shape as ZodError
     return json(
       { errors: [{ message: "Could not send message. Please try again." }] },
       { status: 500 },
