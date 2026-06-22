@@ -19,22 +19,6 @@ const contactSchema = z.object({
 export const POST: RequestHandler = async ({ request }) => {
   const form = await request.formData();
 
-  const token = form.get("cf-turnstile-response");
-  const remoteip = getRequestIp(request);
-
-  const turnstile = await validateTurnstile(token, remoteip);
-
-  if (!turnstile.success) {
-    // json errors must be the same shape as ZodError (errors.issues[0].message)
-    return json(
-      {
-        success: false,
-        errors: [{ message: "Verification failed. Please try again." }],
-      },
-      { status: 400 },
-    );
-  }
-
   // Validate form input
   const validation = contactSchema.safeParse({
     name: form.get("name"),
@@ -53,11 +37,33 @@ export const POST: RequestHandler = async ({ request }) => {
     );
   }
 
+  // Cloudflare turnstile verification AFTER input validation
+  const token = form.get("cf-turnstile-response");
+  const remoteip = getRequestIp(request);
+
+  const turnstile = await validateTurnstile(token, remoteip);
+
+  if (!turnstile.success) {
+    // json errors must be the same shape as ZodError (errors.issues[0].message)
+    return json(
+      {
+        success: false,
+        errors: [{ message: "Verification failed. Please try again." }],
+      },
+      { status: 400 },
+    );
+  }
+
   const contact = validation.data;
 
   // Insert new lead into database
   try {
-    await createLeadEmail(contact);
+    await createLeadEmail({
+      name: contact.name,
+      email: contact.email,
+      service: contact.service,
+      message: contact.message,
+    });
   } catch (err) {
     console.error("Lead insertion error:", err);
     return json(

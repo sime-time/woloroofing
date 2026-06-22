@@ -28,22 +28,6 @@ const landingSchema = z.object({
 export const POST: RequestHandler = async ({ request }) => {
   const form = await request.formData();
 
-  const token = form.get("cf-turnstile-response");
-  const remoteip = getRequestIp(request);
-
-  const turnstile = await validateTurnstile(token, remoteip);
-
-  if (!turnstile.success) {
-    // json errors must be the same shape as ZodError (error.issues[0].message)
-    return json(
-      {
-        success: false,
-        errors: [{ message: "Verification failed. Please try again." }],
-      },
-      { status: 400 },
-    );
-  }
-
   const values = {
     name: form.get("name"),
     phone: form.get("phone"),
@@ -57,6 +41,23 @@ export const POST: RequestHandler = async ({ request }) => {
       {
         success: false,
         errors: validation.error.issues,
+      },
+      { status: 400 },
+    );
+  }
+
+  // Cloudflare turnstile verification AFTER input validation
+  const token = form.get("cf-turnstile-response");
+  const remoteip = getRequestIp(request);
+
+  const turnstile = await validateTurnstile(token, remoteip);
+
+  if (!turnstile.success) {
+    // json errors must be the same shape as ZodError (error.issues[0].message)
+    return json(
+      {
+        success: false,
+        errors: [{ message: "Verification failed. Please try again." }],
       },
       { status: 400 },
     );
