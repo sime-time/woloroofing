@@ -1,5 +1,8 @@
 import { json } from "@sveltejs/kit";
 import z from "zod";
+import { SMS_CONSENT_TEXT } from "$lib/contact-info";
+import normalizePhoneToE164 from "$lib/normalize-phone";
+import { createLeadSMS } from "$lib/server/queries/leads";
 import { getRequestIp, validateTurnstile } from "$lib/server/turnstile";
 import type { RequestHandler } from "./$types";
 
@@ -10,11 +13,12 @@ const landingSchema = z.object({
   phone: z
     .string()
     .trim()
-    .min(1, {
+    .min(7, {
       message: "Please enter a phone number we can text.",
     })
-    .regex(/^[\d\s()+.-]{7,}$/, {
-      message: "Please enter a valid phone number.",
+    .transform((phone) => normalizePhoneToE164(phone))
+    .refine((phone) => phone !== null, {
+      message: "Please enter a valid 10-digit phone number.",
     }),
   consent: z.literal("on", {
     error: "Please agree to receive texts so we can schedule your inspection.",
@@ -58,8 +62,28 @@ export const POST: RequestHandler = async ({ request }) => {
     );
   }
 
-  // TODO:
-  // insert into Postgres
+  const contact = validation.data;
+
+  // Insert new lead into database
+  try {
+    await createLeadSMS({
+      name: contact.name,
+      phone: contact.phone,
+      sms_consent: contact.consent === "on",
+      sms_consent_text: SMS_CONSENT_TEXT,
+      sms_consent_at: new Date(),
+    });
+  } catch (err) {
+    console.error("Lead insertion error:", err);
+    return json(
+      {
+        errors: [
+          { message: "Your contact info was not saved. Please try again." },
+        ],
+      },
+      { status: 500 },
+    );
+  }
 
   return json({ success: true });
 };

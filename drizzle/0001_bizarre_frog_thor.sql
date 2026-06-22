@@ -1,0 +1,1 @@
+ALTER TABLE "leads" RENAME COLUMN "message" TO "initial_message";

@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import z from "zod";
 import { RESEND_API_KEY } from "$env/static/private";
 import { WOLOEMAIL } from "$lib/contact-info";
+import { createLeadEmail } from "$lib/server/queries/leads";
 import { getRequestIp, validateTurnstile } from "$lib/server/turnstile";
 import type { RequestHandler } from "./$types";
 
@@ -11,7 +12,7 @@ const resend = new Resend(RESEND_API_KEY);
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Please enter your name."),
   email: z.email("Please enter a valid email address."),
-  service: z.string(),
+  service: z.string().trim().min(1, "Enter what service can we help you with"),
   message: z.string().trim().optional(),
 });
 
@@ -54,6 +55,18 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const contact = validation.data;
 
+  // Insert new lead into database
+  try {
+    await createLeadEmail(contact);
+  } catch (err) {
+    console.error("Lead insertion error:", err);
+    return json(
+      { errors: [{ message: "Your message did not save. Please try again." }] },
+      { status: 500 },
+    );
+  }
+
+  // Notify woloroofing business email
   const { data, error } = await resend.emails.send({
     from: "WOLO Roofing Leads <leads@updates.woloroofing.com>",
     to: [WOLOEMAIL],
@@ -71,15 +84,11 @@ ${contact.message || "No message provided"}`,
   });
 
   if (error) {
-    // json errors must be the same shape as ZodError
     return json(
       { errors: [{ message: "Could not send message. Please try again." }] },
       { status: 500 },
     );
   }
-
-  // TODO:
-  // insert into Postgres
 
   return json({
     data,

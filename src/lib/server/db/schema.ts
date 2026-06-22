@@ -39,7 +39,7 @@ export const leads = pgTable("leads", {
   address: text(),
 
   requested_service: text(),
-  message: text(),
+  initial_message: text(),
   insurance: text(),
 
   sms_consent: boolean().default(false),
