@@ -1,19 +1,18 @@
+import { twiml } from "twilio";
 import { WOLOPHONE_HREF } from "$lib/contact-info";
 
-// Handle Twilio phone number voice call re-routes
+const { VoiceResponse } = twiml;
+
 export async function POST() {
-  //const phone = WOLOPHONE_HREF.split(":")[1];
+  //const phone = WOLOPHONE_HREF.replace("tel:", "");
   const phone = "+13177778167";
 
-  const twiml = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Say>Please hold while we connect you.</Say>
-  <Dial>
-    <Number>${phone}</Number>
-  </Dial>
-</Response>`;
+  const response = new VoiceResponse();
 
-  return new Response(twiml, {
+  response.say("Please hold while we connect you.");
+  response.dial(phone);
+
+  return new Response(response.toString(), {
     headers: { "Content-Type": "text/xml" },
   });
 }
