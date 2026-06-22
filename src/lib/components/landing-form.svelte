@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { PUBLIC_CF_TURNSTILE_SITE_KEY } from "$env/static/public";
+  import { SMS_CONSENT_TEXT } from "$lib/contact-info";
 
   let error = $state("");
   let success = $state(false);
@@ -76,10 +77,7 @@
           class="checkbox checkbox-primary"
           disabled={success}
         >
-        <span>
-          I agree to receive text messages from WOLO Roofing about my inspection
-          request. Msg &amp; data rates may apply.
-        </span>
+        <span>{SMS_CONSENT_TEXT}</span>
       </label>
     </fieldset>
 
