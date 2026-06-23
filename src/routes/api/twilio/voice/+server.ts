@@ -1,9 +1,8 @@
 import twilio from "twilio";
-//import { WOLOPHONE_HREF } from "$lib/contact-info";
+import { WOLOPHONE_HREF } from "$lib/contact-info";
 
 export async function POST() {
-  //const phone = WOLOPHONE_HREF.replace("tel:", "");
-  const phone = "+13177778167";
+  const phone = WOLOPHONE_HREF.replace("tel:", "");
 
   const response = new twilio.twiml.VoiceResponse();
 

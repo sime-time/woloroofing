@@ -95,5 +95,7 @@ export const POST: RequestHandler = async ({ request }) => {
     );
   }
 
+  // Trigger an sms message in 60 seconds
+
   return json({ success: true });
 };
