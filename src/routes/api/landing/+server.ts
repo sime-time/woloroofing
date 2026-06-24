@@ -3,6 +3,8 @@ import z from "zod";
 import { SMS_CONSENT_TEXT } from "$lib/contact-info";
 import normalizePhoneToE164 from "$lib/normalize-phone";
 import { createLeadSMS } from "$lib/server/queries/leads";
+import { addMessage } from "$lib/server/queries/messages";
+import { sendSMS } from "$lib/server/send-sms";
 import { getRequestIp, validateTurnstile } from "$lib/server/turnstile";
 import type { RequestHandler } from "./$types";
 
@@ -70,17 +72,27 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const contact = validation.data;
 
-  // Insert new lead into database
+  // Create first follow up message to send
+  const firstText = `Hey ${contact.name}, this is Simon from WOLO Roofing. Just got your message, can you describe what damages your roof has?`;
+
   try {
-    await createLeadSMS({
+    // Insert new lead into database
+    const lead = await createLeadSMS({
       name: contact.name,
       phone: contact.phone,
       sms_consent: contact.consent === "on",
       sms_consent_text: SMS_CONSENT_TEXT,
       sms_consent_at: new Date(),
     });
+
+    // Insert new message into database
+    await addMessage({
+      leadId: lead.id,
+      content: firstText,
+      role: "assistant",
+    });
   } catch (err) {
-    console.error("Lead insertion error:", err);
+    console.error("Database insertion error:", err);
     return json(
       {
         success: false,
@@ -95,7 +107,8 @@ export const POST: RequestHandler = async ({ request }) => {
     );
   }
 
-  // Trigger an sms message in 60 seconds
+  // Trigger an sms message within 60 seconds
+  await sendSMS(contact.phone, firstText);
 
   return json({ success: true });
 };

@@ -1,7 +1,6 @@
 import {
   boolean,
   index,
-  jsonb,
   pgEnum,
   pgTable,
   text,
@@ -59,15 +58,12 @@ export const messages = pgTable(
 
     role: messageRole().notNull(),
     content: text().notNull(),
-    external_id: text(),
-    metadata: jsonb(),
 
     ...timestamps(),
   },
   (table) => [
     index("messages_lead_id_idx").on(table.lead_id),
     index("messages_created_at_idx").on(table.created_at),
-    uniqueIndex("messages_external_id_unique").on(table.external_id),
   ],
 );
 

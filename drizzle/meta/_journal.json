@@ -15,6 +15,13 @@
       "when": 1782155068998,
       "tag": "0001_bizarre_frog_thor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782334909982,
+      "tag": "0002_gigantic_romulus",
+      "breakpoints": true
     }
   ]
 }

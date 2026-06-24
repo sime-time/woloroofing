@@ -61,8 +61,6 @@ export async function createLeadEmail({
 }
 
 /*
-createLeadSMS(input) x 
-createLeadEmail(input) x 
 getLeadByPhone(phone)
 updateLead(id, input)
 getLeadById(id)
