@@ -78,7 +78,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const contact = validation.data;
 
   // Create first follow up message to send
-  const firstText = `Hey ${contact.name}, this is Simon from WOLO Roofing. Just got your message, can you describe what damages your roof has?`;
+  const firstText = `Hey this is Simon from WOLO Roofing. Just got your message, can you describe what damages your roof has?`;
 
   try {
     // Insert new lead into database
