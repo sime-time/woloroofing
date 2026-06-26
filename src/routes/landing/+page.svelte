@@ -4,6 +4,7 @@
 </script>
 
 <Navbar />
+
 <main class="w-full min-h-screen bg-neutral">
   <section
     id="contact"

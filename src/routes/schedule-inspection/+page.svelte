@@ -3,14 +3,6 @@
   import { CAL_COM_LINK } from "$lib/contact-info";
 </script>
 
-<svelte:head>
-  <title>Schedule Your Free Roof Inspection | Wolo Roofing</title>
-  <meta
-    name="description"
-    content="Schedule a free roof inspection with Wolo Roofing in Central Indiana."
-  >
-</svelte:head>
-
 <Navbar />
 
 <main class="schedule-page min-h-screen pt-22">
