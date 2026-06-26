@@ -31,7 +31,7 @@ export async function addMessage({
 export async function getLeadConversation(leadId: string) {
   // Get list of messages, oldest to newest
   const conversation = await db
-    .select()
+    .select({ role: messages.role, content: messages.content })
     .from(messages)
     .where(eq(messages.lead_id, leadId))
     .orderBy(asc(messages.created_at));

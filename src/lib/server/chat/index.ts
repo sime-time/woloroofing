@@ -9,6 +9,13 @@ export async function respond(phone: string, message: string) {
   // Get lead id from phone number
   const lead = await findOrCreateLeadByPhone(phone);
 
+  // Add lead's message to conversation
+  await addMessage({
+    leadId: lead.id,
+    content: message.trim(),
+    role: "user",
+  });
+
   // Get conversation history
   const conversation = await getLeadConversation(lead.id);
 
@@ -23,23 +30,11 @@ export async function respond(phone: string, message: string) {
     model: anthropic("claude-sonnet-4-5"),
     system: systemPrompt,
     tools: agentTools,
-    messages: [
-      ...conversation,
-      {
-        role: "user",
-        content: message.trim(),
-      },
-    ],
-    stopWhen: stepCountIs(10),
+    messages: conversation,
+    stopWhen: stepCountIs(3),
   });
 
   // Add new messages to conversation history in order
-  await addMessage({
-    leadId: lead.id,
-    content: message.trim(),
-    role: "user",
-  });
-
   await addMessage({
     leadId: lead.id,
     content: response.text,

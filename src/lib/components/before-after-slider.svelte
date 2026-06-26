@@ -1,8 +1,10 @@
 <script lang="ts">
+  import type { Picture } from "@sveltejs/enhanced-img";
+
   interface Props {
     title: string;
-    beforeSrc: string;
-    afterSrc: string;
+    beforeSrc: string | Picture;
+    afterSrc: string | Picture;
     beforeAlt?: string;
     afterAlt?: string;
     initialValue?: number;

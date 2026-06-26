@@ -9,8 +9,8 @@
     "start": "node build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "check": "biome check --write",
-    "check:svelte": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "biome": "biome check --write",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
