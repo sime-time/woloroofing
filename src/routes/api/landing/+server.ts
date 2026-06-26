@@ -2,7 +2,7 @@ import { json } from "@sveltejs/kit";
 import z from "zod";
 import { SMS_CONSENT_TEXT } from "$lib/contact-info";
 import normalizePhoneToE164 from "$lib/normalize-phone";
-import { createLeadSMS } from "$lib/server/queries/leads";
+import { findOrCreateLeadSMS } from "$lib/server/queries/leads";
 import { addMessage } from "$lib/server/queries/messages";
 import { sendSMS } from "$lib/server/send-sms";
 import { getRequestIp, validateTurnstile } from "$lib/server/turnstile";
@@ -82,7 +82,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
   try {
     // Insert new lead into database
-    const lead = await createLeadSMS({
+    const lead = await findOrCreateLeadSMS({
       name: contact.name,
       phone: contact.phone,
       sms_consent: contact.consent === "on",

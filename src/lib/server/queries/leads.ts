@@ -6,7 +6,7 @@ import { leads } from "$lib/server/db/schema";
 export type NewLead = typeof leads.$inferInsert;
 export type Lead = typeof leads.$inferSelect;
 
-export async function createLeadSMS({
+export async function findOrCreateLeadSMS({
   name,
   phone,
   sms_consent,
@@ -30,9 +30,21 @@ export async function createLeadSMS({
     email,
   };
 
-  const [inserted] = await db.insert(leads).values(newLead).returning();
+  const [inserted] = await db
+    .insert(leads)
+    .values(newLead)
+    .onConflictDoNothing({ target: leads.phone })
+    .returning();
 
   if (inserted) return inserted as Lead;
+
+  const [found] = await db
+    .select()
+    .from(leads)
+    .where(eq(leads.phone, phone))
+    .limit(1);
+
+  if (found) return found as Lead;
 
   throw new Error("CreateLeadSMS insert failed");
 }
