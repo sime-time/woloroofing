@@ -89,7 +89,7 @@
 
         {WOLOPHONE}</a
       >
-      <a class="btn btn-primary hidden lg:flex" href="#contact"
+      <a class="btn btn-primary hidden lg:flex" href="/#contact"
         >Free Inspection</a
       >
 
@@ -136,7 +136,7 @@
 
       <a
         class="btn btn-primary btn-block btn-lg"
-        href="#contact"
+        href="/#contact"
         onclick={closeMenu}
       >
         Free Inspection
