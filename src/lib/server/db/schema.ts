@@ -32,8 +32,8 @@ export const appointmentStatus = pgEnum("appointment_status", [
 export const leads = pgTable("leads", {
   id: uuid().defaultRandom().primaryKey(),
 
-  name: text().notNull(),
-  phone: text(),
+  name: text(),
+  phone: text().unique(),
   email: text(),
   address: text(),
 

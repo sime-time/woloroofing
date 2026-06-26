@@ -17,4 +17,6 @@ export async function sendSMS(phoneNumber: string, textMessage: string) {
   });
 
   console.log("Send SMS:", message.body);
+
+  return message;
 }

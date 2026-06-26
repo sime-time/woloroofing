@@ -1,6 +1,6 @@
 {
-  "id": "38279e7a-9287-477f-af2c-ed7233c6d66f",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "3057bc09-839c-472b-bd02-a705ee752a64",
+  "prevId": "fc456c18-210c-4877-a87f-3f84c46ab45e",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -126,7 +126,7 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "phone": {
           "name": "phone",
@@ -152,8 +152,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "message": {
-          "name": "message",
+        "initial_message": {
+          "name": "initial_message",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -176,7 +176,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "default": "'I agree to receive text messages from WOLO Roofing about my inspection request. Msg &amp; data rates may apply.'"
+          "default": "'I agree to receive text messages from WOLO Roofing about my inspection request. Msg & data rates may apply.'"
         },
         "sms_consent_at": {
           "name": "sms_consent_at",
@@ -202,7 +202,13 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "leads_phone_unique": {
+          "name": "leads_phone_unique",
+          "nullsNotDistinct": false,
+          "columns": ["phone"]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -236,18 +242,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
-        },
-        "external_id": {
-          "name": "external_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "metadata": {
-          "name": "metadata",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -291,21 +285,6 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "messages_external_id_unique": {
-          "name": "messages_external_id_unique",
-          "columns": [
-            {
-              "expression": "external_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
           "concurrently": false,
           "method": "btree",
           "with": {}

@@ -22,6 +22,13 @@
       "when": 1782334909982,
       "tag": "0002_gigantic_romulus",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782480989082,
+      "tag": "0003_lyrical_darkhawk",
+      "breakpoints": true
     }
   ]
 }

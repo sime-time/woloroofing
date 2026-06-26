@@ -9,9 +9,14 @@ import { getRequestIp, validateTurnstile } from "$lib/server/turnstile";
 import type { RequestHandler } from "./$types";
 
 const landingSchema = z.object({
-  name: z.string().trim().min(1, {
-    message: "Please enter your name.",
-  }),
+  name: z
+    .string()
+    .trim()
+    .min(1, {
+      message: "Please enter your name.",
+    })
+    // Capitalize the first letter in the name
+    .transform((name) => name.charAt(0).toUpperCase() + name.slice(1)),
   phone: z
     .string()
     .trim()

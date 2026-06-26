@@ -9,8 +9,8 @@
     "start": "node build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "biome": "biome check --write",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check": "biome check --write",
+    "check:svelte": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
@@ -31,9 +31,11 @@
     "vite": "^8.0.7"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.85",
     "@fontsource-variable/libre-franklin": "^5.2.8",
     "@fontsource/barlow-condensed": "^5.2.8",
     "@tailwindcss/vite": "^4.3.0",
+    "ai": "^6.0.209",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "inngest": "^4.7.0",

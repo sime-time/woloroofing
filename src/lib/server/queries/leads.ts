@@ -1,3 +1,5 @@
+import { eq } from "drizzle-orm";
+import normalizePhoneToE164 from "$lib/normalize-phone";
 import { db } from "$lib/server/db";
 import { leads } from "$lib/server/db/schema";
 
@@ -60,8 +62,30 @@ export async function createLeadEmail({
   throw new Error("CreateLeadEmail insert failed");
 }
 
+export async function findOrCreateLeadByPhone(phone: string) {
+  const normalizedPhone = normalizePhoneToE164(phone);
+  if (!normalizedPhone)
+    throw new Error("Invalid phone number could not be normalized");
+
+  const [found] = await db
+    .select()
+    .from(leads)
+    .where(eq(leads.phone, normalizedPhone))
+    .limit(1);
+
+  if (found) return found as Lead;
+
+  const [inserted] = await db
+    .insert(leads)
+    .values({ phone: normalizedPhone })
+    .returning();
+
+  if (inserted) return inserted as Lead;
+
+  throw new Error("Could not find or create a new lead");
+}
+
 /*
-getLeadByPhone(phone)
 updateLead(id, input)
 getLeadById(id)
 getLeadByEmail(email)

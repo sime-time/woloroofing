@@ -1,3 +1,4 @@
+import { asc, eq } from "drizzle-orm";
 import { db } from "$lib/server/db";
 import { type messageRole, messages } from "$lib/server/db/schema";
 
@@ -25,6 +26,21 @@ export async function addMessage({
   if (inserted) return inserted as Message;
 
   throw new Error("AddMessage insert failed");
+}
+
+export async function getLeadConversation(leadId: string) {
+  // Get list of messages, oldest to newest
+  const conversation = await db
+    .select()
+    .from(messages)
+    .where(eq(messages.lead_id, leadId))
+    .orderBy(asc(messages.created_at));
+
+  if (conversation.length === 0) {
+    return [];
+  }
+
+  return conversation;
 }
 
 /*
