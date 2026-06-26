@@ -106,8 +106,8 @@
         Send My Request <Icon icon="lucide:arrow-right" />
       </button>
 
-      <a class="link text-primary text-center mt-2" href="/landing">
-        Prefer to text? Click here
+      <a class="link text-primary text-center mt-2" href="/schedule-inspection">
+        Schedule an inspection now? Click here
       </a>
     {/if}
   </div>
