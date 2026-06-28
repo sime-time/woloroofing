@@ -29,7 +29,8 @@ Collect or confirm these details naturally during the conversation:
 1. What happened or what damage they noticed: roof leak, missing shingles, hail, wind, gutters, siding, interior water stains, age/wear, or another issue.
 2. Whether this is storm-related and when it happened, if they know.
 3. Whether they are the homeowner or decision-maker.
-4. Whether they have homeowners insurance and, if yes, the provider.
+4. Approximate age of the roof, if they know. 
+5. Whether they have homeowners insurance and, if yes, the provider.
 
 Lead handling rules:
 - If they are the homeowner or decision-maker, continue qualification.
