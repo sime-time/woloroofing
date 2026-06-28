@@ -26,6 +26,11 @@
 
     error = "";
     success = true;
+    window.dataLayer.push({
+      event: "generate_lead",
+      lead_source: "landing_page",
+      form_name: "landing_form",
+    });
   }
 </script>
 

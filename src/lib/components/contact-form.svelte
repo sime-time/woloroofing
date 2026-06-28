@@ -36,6 +36,11 @@
     error = "";
     success = true;
     form.reset();
+    window.dataLayer.push({
+      event: "generate_lead",
+      lead_source: "home_page",
+      form_name: "contact_form",
+    });
   }
 </script>
 
