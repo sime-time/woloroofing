@@ -119,9 +119,9 @@ export const POST: RequestHandler = async ({ request }) => {
       await sendSMS(contact.phone, firstResponse);
 
       // Notify WOLO phone
-      const notification = `New Lead:\n${contact.name}\n${contact.phone}\nMsg: ${contact.message}\n\nAI sent: ${firstResponse}`;
+      const notification = `New Lead:\n${contact.name}\n${contact.phone}\nMsg: ${contact.message}\n\nAI sent:\n${firstResponse}`;
       const woloPhone = WOLOPHONE_HREF.replace("tel:", "");
-      await sendSMS("+13174693673", notification);
+      await sendSMS(woloPhone, notification);
     } catch (err) {
       console.error("Failed to send delayed follow up message:", err);
     }
