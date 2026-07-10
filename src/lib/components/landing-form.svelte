@@ -5,9 +5,11 @@
 
   let error = $state("");
   let success = $state(false);
+  let loading = $state(false);
 
   async function submitLanding(event: SubmitEvent) {
     event.preventDefault();
+    loading = true;
 
     const form = event.currentTarget as HTMLFormElement;
     const data = new FormData(form);
@@ -21,11 +23,13 @@
 
     if (!response.ok) {
       error = result.errors[0].message;
+      loading = false;
       return;
     }
 
     error = "";
     success = true;
+    loading = false;
     window.dataLayer.push({
       event: "generate_lead",
       lead_source: "landing_page",
@@ -106,8 +110,13 @@
         Thank you! We'll reach out to you shortly.
       </p>
     {:else}
-      <button type="submit" class="btn btn-primary btn-lg">
-        Get My Inspection <Icon icon="lucide:arrow-right" />
+      <button type="submit" class="btn btn-primary btn-lg" disabled={loading}>
+        Get My Inspection
+        {#if loading}
+          <span class="loading loading-spinner loading-lg"></span>
+        {:else}
+          <Icon icon="lucide:arrow-right" />
+        {/if}
       </button>
     {/if}
 
