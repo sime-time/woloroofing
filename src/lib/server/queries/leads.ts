@@ -12,6 +12,7 @@ export async function findOrCreateLeadSMS({
   sms_consent,
   sms_consent_text,
   sms_consent_at = new Date(),
+  message,
   email,
 }: {
   name: string;
@@ -19,6 +20,7 @@ export async function findOrCreateLeadSMS({
   sms_consent: boolean;
   sms_consent_text: string;
   sms_consent_at?: Date;
+  message?: string;
   email?: string;
 }) {
   const newLead: NewLead = {
@@ -27,6 +29,7 @@ export async function findOrCreateLeadSMS({
     sms_consent,
     sms_consent_text,
     sms_consent_at,
+    initial_message: message,
     email,
   };
 

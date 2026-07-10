@@ -20,7 +20,7 @@ export async function respond(phone: string, message: string) {
   const conversation = await getLeadConversation(lead.id);
 
   // Build system prompt
-  const systemPrompt = buildSystemPrompt();
+  const systemPrompt = buildSystemPrompt(lead.name ?? undefined);
 
   // Create agent tools for this specific lead
   const agentTools = createTools(lead);
@@ -31,7 +31,7 @@ export async function respond(phone: string, message: string) {
     system: systemPrompt,
     tools: agentTools,
     messages: conversation,
-    stopWhen: stepCountIs(3),
+    stopWhen: stepCountIs(4),
   });
 
   // Add new messages to conversation history in order
@@ -40,8 +40,6 @@ export async function respond(phone: string, message: string) {
     content: response.text,
     role: "assistant",
   });
-
-  console.log("AI Response", response);
 
   return response.text;
 }

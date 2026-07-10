@@ -69,6 +69,19 @@
       >
     </fieldset>
 
+    <fieldset class="fieldset">
+      <label for="message" class="fieldset-label uppercase"
+        >What Happened?</label
+      >
+      <textarea
+        id="message"
+        name="message"
+        class="textarea w-full "
+        placeholder="Example: Missing shingles, leak in kitchen, hail damage, gutters loose"
+        disabled={success}
+      ></textarea>
+    </fieldset>
+
     <fieldset class="fieldset my-2">
       <label
         for="consent"
@@ -93,7 +106,7 @@
         Thank you! We'll reach out to you shortly.
       </p>
     {:else}
-      <button type="submit" class="btn btn-primary btn-lg ">
+      <button type="submit" class="btn btn-primary btn-lg">
         Get My Inspection <Icon icon="lucide:arrow-right" />
       </button>
     {/if}

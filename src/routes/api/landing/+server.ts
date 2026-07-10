@@ -2,8 +2,8 @@ import { json } from "@sveltejs/kit";
 import z from "zod";
 import { SMS_CONSENT_TEXT } from "$lib/contact-info";
 import normalizePhoneToE164 from "$lib/normalize-phone";
+import { respond } from "$lib/server/chat";
 import { findOrCreateLeadSMS } from "$lib/server/queries/leads";
-import { addMessage } from "$lib/server/queries/messages";
 import { sendSMS } from "$lib/server/send-sms";
 import { getRequestIp, validateTurnstile } from "$lib/server/turnstile";
 import type { RequestHandler } from "./$types";
@@ -27,6 +27,10 @@ const landingSchema = z.object({
     .refine((phone) => phone !== null, {
       message: "Please enter a valid 10-digit phone number.",
     }),
+  message: z
+    .string()
+    .trim()
+    .min(5, { message: "Please explain what happened." }),
   consent: z.literal("on", {
     error: "Please agree to receive texts so we can schedule your inspection.",
   }),
@@ -38,6 +42,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const values = {
     name: form.get("name"),
     phone: form.get("phone"),
+    message: form.get("message"),
     consent: form.get("consent"),
   };
 
@@ -77,24 +82,15 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const contact = validation.data;
 
-  // Create first follow up message to send
-  const firstText = `Hey this is Simon from WOLO Roofing. Just got your message, can you describe what damages your roof has?`;
-
   try {
     // Insert new lead into database
-    const lead = await findOrCreateLeadSMS({
+    await findOrCreateLeadSMS({
       name: contact.name,
       phone: contact.phone,
+      message: contact.message,
       sms_consent: contact.consent === "on",
       sms_consent_text: SMS_CONSENT_TEXT,
       sms_consent_at: new Date(),
-    });
-
-    // Insert new message into database
-    await addMessage({
-      leadId: lead.id,
-      content: firstText,
-      role: "assistant",
     });
   } catch (err) {
     console.error("Database insertion error:", err);
@@ -112,8 +108,26 @@ export const POST: RequestHandler = async ({ request }) => {
     );
   }
 
-  // Trigger an sms message within 60 seconds
-  await sendSMS(contact.phone, firstText);
+  try {
+    // Generate first follow up message to send
+    const firstResponse = await respond(contact.phone, contact.message);
 
+    // Trigger an sms message within 60 seconds
+    await sendSMS(contact.phone, firstResponse);
+  } catch (err) {
+    console.error("Failed to send follow up message:", err);
+    return json(
+      {
+        success: false,
+        errors: [
+          {
+            message:
+              "Your info was saved, but we had trouble sending the text. Please call us directly.",
+          },
+        ],
+      },
+      { status: 500 },
+    );
+  }
   return json({ success: true });
 };
