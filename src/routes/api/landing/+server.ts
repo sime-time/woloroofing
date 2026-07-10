@@ -108,26 +108,19 @@ export const POST: RequestHandler = async ({ request }) => {
     );
   }
 
-  try {
-    // Generate first follow up message to send
-    const firstResponse = await respond(contact.phone, contact.message);
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
-    // Trigger an sms message within 60 seconds
-    await sendSMS(contact.phone, firstResponse);
-  } catch (err) {
-    console.error("Failed to send follow up message:", err);
-    return json(
-      {
-        success: false,
-        errors: [
-          {
-            message:
-              "Your info was saved, but we had trouble sending the text. Please call us directly.",
-          },
-        ],
-      },
-      { status: 500 },
-    );
-  }
+  void (async () => {
+    try {
+      await delay(60_000);
+
+      const firstResponse = await respond(contact.phone, contact.message);
+      await sendSMS(contact.phone, firstResponse);
+    } catch (err) {
+      console.error("Failed to send delayed follow up message:", err);
+    }
+  })();
+
   return json({ success: true });
 };
