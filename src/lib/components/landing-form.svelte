@@ -3,6 +3,11 @@
   import { PUBLIC_CF_TURNSTILE_SITE_KEY } from "$env/static/public";
   import { SMS_CONSENT_TEXT } from "$lib/contact-info";
 
+  let { idPrefix = "lead", formLocation = "unknown" } = $props<{
+    idPrefix?: string;
+    formLocation?: string;
+  }>();
+
   let error = $state("");
   let success = $state(false);
   let loading = $state(false);
@@ -32,28 +37,31 @@
     loading = false;
     window.dataLayer.push({
       event: "generate_lead",
-      lead_source: "landing_page",
-      form_name: "landing_form",
+      lead_source: "home_page",
+      form_name: "lead_form",
+      form_location: formLocation,
     });
   }
 </script>
 
 <form
+  id={`${idPrefix}-form`}
   method="POST"
   onsubmit={submitLanding}
   class="card bg-base-200 w-full max-w-screen border border-neutral/10 shadow-sm"
 >
   <div class="card-body text-base-content">
     <h2 class="card-title uppercase text-xl font-semibold tracking-wide ">
-      We'll text you soon
+      We'll reach out to you
     </h2>
 
     <fieldset class="fieldset">
-      <label for="name" class="fieldset-label uppercase">Name</label>
+      <label for={`${idPrefix}-name`} class="fieldset-label uppercase">Name</label>
       <input
         name="name"
-        id="name"
+        id={`${idPrefix}-name`}
         type="text"
+        required
         class="input w-full"
         placeholder="Your name"
         disabled={success}
@@ -61,11 +69,12 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <label for="phone" class="fieldset-label uppercase">Phone</label>
+      <label for={`${idPrefix}-phone`} class="fieldset-label uppercase">Phone</label>
       <input
         name="phone"
-        id="phone"
+        id={`${idPrefix}-phone`}
         type="tel"
+        required
         autocomplete="tel"
         class="input w-full"
         placeholder="Your phone number"
@@ -74,12 +83,15 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <label for="message" class="fieldset-label uppercase"
+      <label for={`${idPrefix}-message`} class="fieldset-label uppercase"
         >What Happened?</label
       >
       <textarea
-        id="message"
+        id={`${idPrefix}-message`}
         name="message"
+        required
+        minlength="5"
+        maxlength="500"
         class="textarea w-full "
         placeholder="Example: Missing shingles, leak in kitchen, hail damage, gutters loose"
         disabled={success}
@@ -88,14 +100,15 @@
 
     <fieldset class="fieldset my-2">
       <label
-        for="consent"
+        for={`${idPrefix}-consent`}
         class="font-sans text-wrap text-xs font-light flex gap-2"
       >
         <input
-          id="consent"
+          id={`${idPrefix}-consent`}
           name="consent"
           checked={false}
           type="checkbox"
+          required
           class="checkbox checkbox-primary"
           disabled={success}
         >
@@ -111,7 +124,7 @@
       </p>
     {:else}
       <button type="submit" class="btn btn-primary btn-lg" disabled={loading}>
-        Get My Inspection
+        Get Free Inspection
         {#if loading}
           <span class="loading loading-spinner loading-lg"></span>
         {:else}

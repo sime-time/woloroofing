@@ -67,17 +67,6 @@
         <span class="text-accent">We handle the whole claim.</span>
       </h2>
 
-      <!--
-      <p class="text-base-100/90 text-lg">
-        Filing a roofing insurance claim is confusing, and a missed detail can
-        <u>cost you thousands.</u>
-        WOLO specializes in storm damage restoration and insurance claim
-        assistance across Central Indiana. We inspect, document, and work
-        directly with your adjuster
-        <u>so you get the restoration you're owed</u>, without the runaround.
-      </p>
-			-->
-
       <ul class="space-y-2">
         {#each listItems as item}
           <li class="flex items-start gap-2 text-base-100">
@@ -90,12 +79,12 @@
         {/each}
       </ul>
 
-      <button
-        type="button"
+      <a
+        href="/#contact"
         class="btn btn-primary btn-lg h-auto min-h-16 w-full whitespace-normal border-2 py-5 uppercase md:w-fit md:whitespace-nowrap"
       >
         Start my free inspection <Icon icon="lucide:arrow-right" />
-      </button>
+      </a>
     </div>
 
     <div class="grid min-w-0 gap-6 md:grid-cols-2">

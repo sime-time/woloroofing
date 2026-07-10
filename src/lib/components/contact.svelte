@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { contacts, socials } from "$lib/contact-info";
-  import ContactForm from "./contact-form.svelte";
+  import LandingForm from "./landing-form.svelte";
 </script>
 
 <section
@@ -58,6 +58,6 @@
       </div>
     </div>
 
-    <ContactForm />
+    <LandingForm idPrefix="contact-lead" formLocation="contact" />
   </div>
 </section>

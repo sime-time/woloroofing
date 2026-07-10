@@ -80,7 +80,7 @@
     </nav>
 
     <!-- End Button -->
-    <div class="flex">
+    <div class="flex items-center gap-2">
       <a
         class="btn btn-ghost text-base-100 hover:text-accent hidden lg:flex border-none hover:bg-transparent"
         href={WOLOPHONE_HREF}
@@ -92,6 +92,16 @@
       <a class="btn btn-primary hidden lg:flex" href="/#contact"
         >Free Inspection</a
       >
+
+      <!-- Mobile Call Button -->
+      <a
+        href={WOLOPHONE_HREF}
+        class="btn btn-outline gap-2 lg:hidden"
+        aria-label="Call WOLO Roofing now"
+      >
+        <Icon icon="lucide:phone" class="size-4" />
+        <span>Call Now</span>
+      </a>
 
       <!-- Mobile Menu Toggle -->
       <button
