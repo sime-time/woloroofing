@@ -119,7 +119,7 @@ export const POST: RequestHandler = async ({ request }) => {
       await sendSMS(contact.phone, firstResponse);
 
       // Notify WOLO phone
-      const notification = `New Lead: ${contact.name}\n\n${contact.phone}\n\nMsg: ${contact.message}\n\nAI sent:\n${firstResponse}`;
+      const notification = `New Lead: ${contact.name}\n${contact.phone}\nMsg: ${contact.message}\n\nAI sent:\n${firstResponse}`;
       const woloPhone = WOLOPHONE_HREF.replace("tel:", "");
       await sendSMS(woloPhone, notification);
     } catch (err) {
