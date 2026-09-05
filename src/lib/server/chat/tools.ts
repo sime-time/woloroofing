@@ -1,6 +1,6 @@
 import { tool } from "ai";
 import z from "zod";
-import { BOOKING_LINK, WOLOPHONE_HREF } from "$lib/contact-info";
+import { BOOKING_LINK, DEVPHONE, WOLOPHONE_HREF } from "$lib/contact-info";
 import {
   bookInspection as bookCalInspection,
   getAvailableInspectionSlots as getCalAvailableInspectionSlots,
@@ -220,6 +220,7 @@ export function createTools(lead: Lead) {
 
       const woloPhone = WOLOPHONE_HREF.replace("tel:", "");
       const twilioMessage = await sendSMS(woloPhone, summary);
+      await sendSMS(DEVPHONE, summary);
 
       return {
         success: true,

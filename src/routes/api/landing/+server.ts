@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 import z from "zod";
-import { SMS_CONSENT_TEXT, WOLOPHONE_HREF } from "$lib/contact-info";
+import { DEVPHONE, SMS_CONSENT_TEXT, WOLOPHONE_HREF } from "$lib/contact-info";
 import normalizePhoneToE164 from "$lib/normalize-phone";
 import { respond } from "$lib/server/chat";
 import { findOrCreateLeadSMS } from "$lib/server/queries/leads";
@@ -122,6 +122,7 @@ export const POST: RequestHandler = async ({ request }) => {
       const notification = `New Lead: ${contact.name}\n${contact.phone}\nMsg: ${contact.message}\n\nAI sent:\n${firstResponse}`;
       const woloPhone = WOLOPHONE_HREF.replace("tel:", "");
       await sendSMS(woloPhone, notification);
+      await sendSMS(DEVPHONE, notification);
     } catch (err) {
       console.error("Failed to send delayed follow up message:", err);
     }
