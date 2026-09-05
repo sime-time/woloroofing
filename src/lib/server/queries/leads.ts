@@ -5,6 +5,9 @@ import { leads } from "$lib/server/db/schema";
 
 export type NewLead = typeof leads.$inferInsert;
 export type Lead = typeof leads.$inferSelect;
+export type LeadUpdate = Partial<
+  Pick<Lead, "name" | "email" | "address" | "insurance">
+>;
 
 export async function findOrCreateLeadSMS({
   name,
@@ -101,8 +104,35 @@ export async function findOrCreateLeadByPhone(phone: string) {
   throw new Error("Could not find or create a new lead");
 }
 
+export async function updateLead(id: string, input: LeadUpdate) {
+  const values = Object.fromEntries(
+    Object.entries(input).filter(([, value]) => value !== undefined),
+  ) as LeadUpdate;
+
+  if (Object.keys(values).length === 0) {
+    const [found] = await db
+      .select()
+      .from(leads)
+      .where(eq(leads.id, id))
+      .limit(1);
+
+    if (found) return found as Lead;
+
+    throw new Error("Lead not found");
+  }
+
+  const [updated] = await db
+    .update(leads)
+    .set(values)
+    .where(eq(leads.id, id))
+    .returning();
+
+  if (updated) return updated as Lead;
+
+  throw new Error("Lead update failed");
+}
+
 /*
-updateLead(id, input)
 getLeadById(id)
 getLeadByEmail(email)
 */
