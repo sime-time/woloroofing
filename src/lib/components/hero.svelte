@@ -1,6 +1,5 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { WOLOPHONE, WOLOPHONE_HREF } from "$lib/contact-info";
   import LandingForm from "./landing-form.svelte";
 
   const benefits = [

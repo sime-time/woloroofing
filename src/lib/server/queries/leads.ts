@@ -6,8 +6,77 @@ import { leads } from "$lib/server/db/schema";
 export type NewLead = typeof leads.$inferInsert;
 export type Lead = typeof leads.$inferSelect;
 export type LeadUpdate = Partial<
-  Pick<Lead, "name" | "email" | "address" | "insurance">
+  Pick<
+    Lead,
+    | "name"
+    | "email"
+    | "address"
+    | "insurance"
+    | "preferred_contact"
+    | "phone"
+    | "sms_consent"
+  >
 >;
+
+export async function findOrCreateLead({
+  name,
+  preferred_contact,
+  email,
+  phone,
+  sms_consent = false,
+  sms_consent_text,
+  sms_consent_at,
+  message,
+}: {
+  name: string;
+  preferred_contact: "email" | "sms";
+  email?: string;
+  phone?: string;
+  sms_consent?: boolean;
+  sms_consent_text?: string;
+  sms_consent_at?: Date;
+  message?: string;
+}) {
+  const newLead: NewLead = {
+    name,
+    phone,
+    sms_consent,
+    sms_consent_text,
+    sms_consent_at,
+    initial_message: message,
+    email,
+    preferred_contact,
+    requested_service: "Instant roof estimate quiz",
+  };
+
+  if (phone) {
+    const [smsLead] = await db
+      .insert(leads)
+      .values(newLead)
+      .onConflictDoUpdate({
+        target: leads.phone,
+        set: {
+          name,
+          email,
+          preferred_contact,
+          sms_consent: sms_consent ?? false,
+          sms_consent_text,
+          sms_consent_at,
+          initial_message: message,
+          requested_service: "Instant roof estimate quiz",
+        },
+      })
+      .returning();
+
+    if (smsLead) return smsLead as Lead;
+  }
+
+  const [emailLead] = await db.insert(leads).values(newLead).returning();
+
+  if (emailLead) return emailLead as Lead;
+
+  throw new Error("findOrCreateLead insert failed");
+}
 
 export async function findOrCreateLeadSMS({
   name,
@@ -34,6 +103,7 @@ export async function findOrCreateLeadSMS({
     sms_consent_at,
     initial_message: message,
     email,
+    preferred_contact: "sms",
   };
 
   const [inserted] = await db
@@ -63,7 +133,7 @@ export async function createLeadEmail({
 }: {
   name: string;
   email: string;
-  service: string;
+  service?: string;
   message?: string;
 }) {
   const newLead: NewLead = {
@@ -71,6 +141,7 @@ export async function createLeadEmail({
     email,
     requested_service: service,
     initial_message: message,
+    preferred_contact: "email",
   };
 
   const [inserted] = await db.insert(leads).values(newLead).returning();

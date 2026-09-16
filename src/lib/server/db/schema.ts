@@ -1,6 +1,8 @@
 import {
   boolean,
   index,
+  integer,
+  jsonb,
   pgEnum,
   pgTable,
   text,
@@ -28,6 +30,29 @@ export const appointmentStatus = pgEnum("appointment_status", [
   "completed",
   "cancelled",
 ]);
+export const preferredContact = pgEnum("preferred_contact", ["sms", "email"]);
+
+export const estimateResultType = pgEnum("estimate_result_type", [
+  "roof_replacement",
+  "storm_damage",
+  "possible_repair",
+  "exterior_only",
+  "general",
+]);
+
+export type EstimateQuizAnswers = {
+  helpWith: string;
+  decisionMaker: string;
+  location: string;
+  roofAge: string;
+  roofType: string;
+  homeSize: string;
+  stories: string;
+  roofComplexity: string;
+  roofCondition: string;
+  insurance: string;
+  timeline: string;
+};
 
 export const leads = pgTable("leads", {
   id: uuid().defaultRandom().primaryKey(),
@@ -37,6 +62,7 @@ export const leads = pgTable("leads", {
   email: text(),
   address: text(),
 
+  preferred_contact: preferredContact(),
   requested_service: text(),
   initial_message: text(),
   insurance: text(),
@@ -44,6 +70,28 @@ export const leads = pgTable("leads", {
   sms_consent: boolean().default(false),
   sms_consent_text: text().default(SMS_CONSENT_TEXT),
   sms_consent_at: timestamp(),
+
+  ...timestamps(),
+});
+
+export const quizSubmissions = pgTable("quiz_submissions", {
+  id: uuid().defaultRandom().primaryKey(),
+  lead_id: uuid()
+    .notNull()
+    .references(() => leads.id, { onDelete: "cascade" }),
+
+  answers: jsonb().$type<EstimateQuizAnswers>().notNull(),
+
+  estimate_low: integer().notNull(),
+  estimate_high: integer().notNull(),
+
+  result_type: estimateResultType().notNull().default("general"),
+
+  customer_message: text().notNull(),
+  owner_summary: text().notNull(),
+
+  preferred_contact: preferredContact().notNull(),
+  delivered_at: timestamp(),
 
   ...timestamps(),
 });

@@ -56,7 +56,9 @@
     </h2>
 
     <fieldset class="fieldset">
-      <label for={`${idPrefix}-name`} class="fieldset-label uppercase">Name</label>
+      <label for={`${idPrefix}-name`} class="fieldset-label uppercase"
+        >Name</label
+      >
       <input
         name="name"
         id={`${idPrefix}-name`}
@@ -69,7 +71,9 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <label for={`${idPrefix}-phone`} class="fieldset-label uppercase">Phone</label>
+      <label for={`${idPrefix}-phone`} class="fieldset-label uppercase"
+        >Phone</label
+      >
       <input
         name="phone"
         id={`${idPrefix}-phone`}

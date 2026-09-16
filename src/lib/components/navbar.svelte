@@ -89,8 +89,8 @@
 
         {WOLOPHONE}</a
       >
-      <a class="btn btn-primary hidden lg:flex" href="/#contact"
-        >Free Inspection</a
+      <a class="btn btn-primary hidden lg:flex" href="/estimate"
+        >Instant Estimate</a
       >
 
       <!-- Mobile Call Button -->
@@ -146,10 +146,10 @@
 
       <a
         class="btn btn-primary btn-block btn-lg"
-        href="/#contact"
+        href="/estimate"
         onclick={closeMenu}
       >
-        Free Inspection
+        Instant Estimate
       </a>
     </nav>
   {/if}
