@@ -11,6 +11,7 @@ import {
 import normalizePhoneToE164 from "$lib/normalize-phone";
 import type { EstimateQuizAnswers } from "$lib/server/db/schema";
 import { findOrCreateLead } from "$lib/server/queries/leads";
+import { addMessage } from "$lib/server/queries/messages";
 import { createQuizSubmissions } from "$lib/server/queries/quiz-submissions";
 import { calculateRoofEstimate } from "$lib/server/roof-estimate/calculate";
 import { sendSMS } from "$lib/server/send-sms";
@@ -118,6 +119,11 @@ export const POST: RequestHandler = async ({ request }) => {
       }
 
       await sendSMS(normalizedPhone, estimate.customerMessage);
+      await addMessage({
+        leadId: lead.id,
+        content: estimate.customerMessage,
+        role: "assistant",
+      });
     } else {
       const { error } = await resend.emails.send({
         from: "WOLO Roofing Estimates <leads@updates.woloroofing.com>",
