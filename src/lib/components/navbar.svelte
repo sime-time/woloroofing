@@ -47,7 +47,7 @@
 
 <header
   class={["fixed top-0 left-0 z-50 flex w-full justify-center transition-colors duration-300", 
-		isScrolled || isMobileMenuOpen ? "bg-neutral shadow-lg" : "bg-linear-to-b from-neutral/70 to-transparent",
+		isScrolled || isMobileMenuOpen ? "bg-neutral shadow-lg" : "bg-linear-to-b from-neutral/80 to-transparent",
 	]}
 >
   <section

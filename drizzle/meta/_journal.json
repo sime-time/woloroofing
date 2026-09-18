@@ -29,6 +29,13 @@
       "when": 1782480989082,
       "tag": "0003_lyrical_darkhawk",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789743906373,
+      "tag": "0004_true_enchantress",
+      "breakpoints": true
     }
   ]
 }

@@ -80,10 +80,10 @@
       </ul>
 
       <a
-        href="/#contact"
+        href="/estimate"
         class="btn btn-primary btn-lg h-auto min-h-16 w-full whitespace-normal border-2 py-5 uppercase md:w-fit md:whitespace-nowrap"
       >
-        Start my free inspection <Icon icon="lucide:arrow-right" />
+        Get my instant quote<Icon icon="lucide:arrow-right" />
       </a>
     </div>
 
