@@ -64,7 +64,7 @@ export function buildCustomerMessage(
     return `${body}\n\nIf you want, just reply here and I can help schedule a free WOLO roof inspection.`;
   }
 
-  return `${body}\n\nYou can schedule a free WOLO roof inspection here:\nhttps://www.woloroofing.com/free-inspection`;
+  return `${body}\n\nYou can schedule a free WOLO roof inspection here:\nhttps://www.woloroofing.com/schedule-inspection`;
 }
 
 export function buildOwnerSummary(
