@@ -86,7 +86,7 @@ export function buildOwnerSummary(
     `Estimate: ${range}`,
     "",
     `Need: ${answers.helpWith}`,
-    `Location: ${answers.location}`,
+    `ZIP Code: ${answers.zipCode}`,
     `Roof Age: ${answers.roofAge}`,
     `Roof Type: ${answers.roofType}`,
     `Home Size: ${answers.homeSize}`,

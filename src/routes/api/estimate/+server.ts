@@ -8,6 +8,7 @@ import {
   WOLOEMAIL,
   WOLOPHONE_HREF,
 } from "$lib/contact-info";
+import { estimateQuizAnswersSchema } from "$lib/estimate-quiz";
 import normalizePhoneToE164 from "$lib/normalize-phone";
 import type { EstimateQuizAnswers } from "$lib/server/db/schema";
 import { findOrCreateLead } from "$lib/server/queries/leads";
@@ -19,20 +20,6 @@ import type { RequestHandler } from "./$types";
 
 const resend = new Resend(RESEND_API_KEY);
 
-const answersSchema = z.object({
-  helpWith: z.string().trim().min(1),
-  decisionMaker: z.string().trim().min(1),
-  location: z.string().trim().min(1),
-  roofAge: z.string().trim().min(1),
-  roofType: z.string().trim().min(1),
-  homeSize: z.string().trim().min(1),
-  stories: z.string().trim().min(1),
-  roofComplexity: z.string().trim().min(1),
-  roofCondition: z.string().trim().min(1),
-  insurance: z.string().trim().min(1),
-  timeline: z.string().trim().min(1),
-});
-
 const estimateSchema = z.discriminatedUnion("preferredContact", [
   z.object({
     preferredContact: z.literal("sms"),
@@ -41,13 +28,13 @@ const estimateSchema = z.discriminatedUnion("preferredContact", [
     smsConsent: z.literal(true, {
       error: "Please agree to receive texts so we can send your estimate.",
     }),
-    answers: answersSchema,
+    answers: estimateQuizAnswersSchema,
   }),
   z.object({
     preferredContact: z.literal("email"),
     name: z.string().trim().min(1, "Please enter your name."),
     email: z.email("Please enter a valid email address."),
-    answers: answersSchema,
+    answers: estimateQuizAnswersSchema,
   }),
 ]);
 

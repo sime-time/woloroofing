@@ -1,19 +1,10 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
 
-  let { idPrefix = "lead", formLocation = "unknown" } = $props<{
+  let { idPrefix = "lead" } = $props<{
     idPrefix?: string;
     formLocation?: string;
   }>();
-
-  function trackEstimateClick() {
-    window.dataLayer.push({
-      event: "generate_lead",
-      lead_source: "home_page",
-      form_name: "lead_form",
-      form_location: formLocation,
-    });
-  }
 </script>
 
 <div
@@ -42,11 +33,7 @@
       </li>
     </ul>
 
-    <a
-      href="/estimate"
-      class="btn btn-primary btn-lg"
-      onclick={trackEstimateClick}
-    >
+    <a href="/estimate" class="btn btn-primary btn-lg">
       Start My Estimate
       <Icon icon="lucide:arrow-right" />
     </a>

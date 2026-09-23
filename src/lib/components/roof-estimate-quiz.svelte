@@ -2,14 +2,12 @@
   import Icon from "@iconify/svelte";
   import { z } from "zod";
   import { SMS_CONSENT_TEXT } from "$lib/contact-info";
+  import {
+    estimateQuizAnswersSchema,
+    estimateQuizQuestions,
+  } from "$lib/estimate-quiz";
 
   type PreferredContact = "sms" | "email";
-
-  type Question = {
-    id: string;
-    text: string;
-    options: string[];
-  };
 
   type ContactOption = {
     value: PreferredContact;
@@ -30,134 +28,7 @@
     },
   ];
 
-  const questions: Question[] = [
-    {
-      id: "helpWith",
-      text: "What do you need help with?",
-      options: [
-        "Full roof replacement",
-        "Storm, wind, or hail damage",
-        "Roof leak",
-        "Missing or damaged shingles",
-        "Gutters, siding, or exterior damage",
-        "Not sure yet",
-      ],
-    },
-    {
-      id: "decisionMaker",
-      text: "Are you the homeowner or decision maker?",
-      options: [
-        "Yes, I own the home",
-        "I help make decisions",
-        "No, I'm just researching",
-      ],
-    },
-    {
-      id: "location",
-      text: "Where is the property located?",
-      options: [
-        "Indianapolis",
-        "Carmel / Fishers / Noblesville",
-        "Westfield / Zionsville",
-        "Greenwood / Franklin",
-        "Brownsburg / Avon / Plainfield",
-        "Other Central Indiana",
-        "Outside Central Indiana",
-      ],
-    },
-    {
-      id: "roofAge",
-      text: "How old is the roof?",
-      options: [
-        "0-5 years",
-        "6-10 years",
-        "11-15 years",
-        "16-20 years",
-        "20+ years",
-        "Not sure",
-      ],
-    },
-    {
-      id: "roofType",
-      text: "What type of roof do you have?",
-      options: [
-        "Asphalt shingles",
-        "Metal roof",
-        "Flat or low-slope roof",
-        "Tile, slate, or specialty roof",
-        "Not sure",
-      ],
-    },
-    {
-      id: "homeSize",
-      text: "About how big is the home?",
-      options: [
-        "Under 1,200 sq ft",
-        "1,200-1,800 sq ft",
-        "1,800-2,500 sq ft",
-        "2,500-3,500 sq ft",
-        "3,500+ sq ft",
-        "Not sure",
-      ],
-    },
-    {
-      id: "stories",
-      text: "How many stories is the home?",
-      options: ["1 story", "2 stories", "3+ stories", "Not sure"],
-    },
-    {
-      id: "roofComplexity",
-      text: "How complex is the roof shape?",
-      options: [
-        "Simple roof",
-        "A few peaks and valleys",
-        "Lots of peaks, valleys, or dormers",
-        "Very steep roof",
-        "Not sure",
-      ],
-    },
-    {
-      id: "roofCondition",
-      text: "What condition is the roof in?",
-      options: [
-        "Just old or worn",
-        "Missing shingles",
-        "Hail or wind damage",
-        "Leak or ceiling stains",
-        "Major visible damage",
-        "Not sure",
-      ],
-    },
-    {
-      id: "insurance",
-      text: "Do you have homeowners insurance?",
-      options: ["Yes", "No", "Not sure"],
-    },
-    {
-      id: "timeline",
-      text: "How soon do you want someone to look at it?",
-      options: [
-        "ASAP",
-        "This week",
-        "This month",
-        "Just checking price for now",
-      ],
-    },
-  ];
-
-  const answersSchema = z.object({
-    helpWith: z.string().trim().min(1),
-    decisionMaker: z.string().trim().min(1),
-    location: z.string().trim().min(1),
-    roofAge: z.string().trim().min(1),
-    roofType: z.string().trim().min(1),
-    homeSize: z.string().trim().min(1),
-    stories: z.string().trim().min(1),
-    roofComplexity: z.string().trim().min(1),
-    roofCondition: z.string().trim().min(1),
-    insurance: z.string().trim().min(1),
-    timeline: z.string().trim().min(1),
-  });
+  const questions = estimateQuizQuestions;
 
   const estimateSchema = z.discriminatedUnion("preferredContact", [
     z.object({
@@ -170,13 +41,13 @@
       smsConsent: z.literal(true, {
         error: "Please agree to receive texts so we can send your estimate.",
       }),
-      answers: answersSchema,
+      answers: estimateQuizAnswersSchema,
     }),
     z.object({
       preferredContact: z.literal("email"),
       name: z.string().trim().min(1, "Please enter your name."),
       email: z.email("Please enter a valid email address.").trim(),
-      answers: answersSchema,
+      answers: estimateQuizAnswersSchema,
     }),
   ]);
 
@@ -202,7 +73,9 @@
   const isFirstStep = $derived(currentStep === 0);
   const canContinue = $derived(
     currentQuestion
-      ? Boolean(selectedAnswer)
+      ? currentQuestion.type === "zip"
+        ? /^\d{5}$/.test(selectedAnswer ?? "")
+        : Boolean(selectedAnswer)
       : isContactStep
         ? Boolean(preferredContact)
         : false,
@@ -214,6 +87,15 @@
     answers = {
       ...answers,
       [currentQuestion.id]: option,
+    };
+  }
+
+  function updateZipCode(value: string) {
+    if (!currentQuestion || currentQuestion.type !== "zip") return;
+
+    answers = {
+      ...answers,
+      [currentQuestion.id]: value.replace(/\D/g, "").slice(0, 5),
     };
   }
 
@@ -310,32 +192,49 @@
         {currentQuestion.text}
       </h1>
 
-      <div class="flex max-w-3xl flex-col gap-4">
-        {#each currentQuestion.options as option}
-          <label class="cursor-pointer">
-            <input
-              class="peer sr-only"
-              type="radio"
-              name={currentQuestion.id}
-              value={option}
-              checked={selectedAnswer === option}
-              onchange={() => selectAnswer(option)}
-            >
+      {#if currentQuestion.type === "choice"}
+        <div class="flex max-w-3xl flex-col gap-4">
+          {#each currentQuestion.options as option}
+            <label class="cursor-pointer">
+              <input
+                class="peer sr-only"
+                type="radio"
+                name={currentQuestion.id}
+                value={option}
+                checked={selectedAnswer === option}
+                onchange={() => selectAnswer(option)}
+              >
 
-            <span
-              class={[
-                "btn btn-lg border border-neutral w-full sm:w-1/2 justify-start font-sans tracking-normal font-medium normal-case peer-focus-visible:outline peer-focus-visible:outline-offset-2",
-                selectedAnswer === option ? "btn-primary border-primary" : "btn-soft ",
-              ]}
-            >
-              <span class="flex-1 text-left">{option}</span>
-              {#if selectedAnswer === option}
-                <Icon icon="lucide:check" class="size-5" />
-              {/if}
-            </span>
-          </label>
-        {/each}
-      </div>
+              <span
+                class={[
+                  "btn btn-lg border border-neutral w-full sm:w-1/2 justify-start font-sans tracking-normal font-medium normal-case peer-focus-visible:outline peer-focus-visible:outline-offset-2",
+                  selectedAnswer === option ? "btn-primary border-primary" : "btn-soft ",
+                ]}
+              >
+                <span class="flex-1 text-left">{option}</span>
+                {#if selectedAnswer === option}
+                  <Icon icon="lucide:check" class="size-5" />
+                {/if}
+              </span>
+            </label>
+          {/each}
+        </div>
+      {:else}
+        <div class="max-w-md">
+          <label for="estimate-zip" class="sr-only">ZIP code</label>
+          <input
+            id="estimate-zip"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            maxlength="5"
+            class="input input-lg h-20 w-full border-2 border-neutral bg-base-200 px-8 text-3xl font-medium text-neutral"
+            placeholder={currentQuestion.placeholder}
+            value={selectedAnswer ?? ""}
+            oninput={(event) => updateZipCode(event.currentTarget.value)}
+          >
+        </div>
+      {/if}
 
       <div class="mt-14 hidden gap-4 sm:flex">
         {#if !isFirstStep}

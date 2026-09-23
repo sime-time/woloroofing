@@ -11,6 +11,9 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { SMS_CONSENT_TEXT } from "$lib/contact-info";
+import type { EstimateQuizAnswers } from "$lib/estimate-quiz";
+
+export type { EstimateQuizAnswers } from "$lib/estimate-quiz";
 
 const timestamps = () => ({
   created_at: timestamp().notNull().defaultNow(),
@@ -39,20 +42,6 @@ export const estimateResultType = pgEnum("estimate_result_type", [
   "exterior_only",
   "general",
 ]);
-
-export type EstimateQuizAnswers = {
-  helpWith: string;
-  decisionMaker: string;
-  location: string;
-  roofAge: string;
-  roofType: string;
-  homeSize: string;
-  stories: string;
-  roofComplexity: string;
-  roofCondition: string;
-  insurance: string;
-  timeline: string;
-};
 
 export const leads = pgTable("leads", {
   id: uuid().defaultRandom().primaryKey(),
