@@ -112,10 +112,12 @@
         class="btn btn-ghost border-none text-base-100 hover:text-accent hover:bg-transparent lg:hidden"
         onclick={toggleMenu}
       >
-        <Icon
-          icon={isMobileMenuOpen ? "lucide:x" : "lucide:menu"}
-          class="h-7 w-auto"
-        />
+        <span class="size-7">
+          <Icon
+            icon={isMobileMenuOpen ? "lucide:x" : "lucide:menu"}
+            class="h-7 w-auto"
+          />
+        </span>
       </button>
     </div>
   </section>
